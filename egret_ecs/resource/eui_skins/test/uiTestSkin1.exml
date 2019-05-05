@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="uiTestSkin1" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="bg" left="-34" right="-446" top="-141" bottom="-108" anchorOffsetX="0" source="waicheng_png" anchorOffsetY="0"/>
+	<e:Group id="btn_close" width="200" height="127.27" anchorOffsetY="0" horizontalCenter="0" verticalCenter="36.5">
+		<e:Rect top="0" bottom="0" left="0" right="0" ellipseWidth="94" ellipseHeight="103"/>
+		<e:Label text="Close" size="41" left="0" right="0" top="0" bottom="0" textAlign="center" verticalAlign="middle"/>
+	</e:Group>
+	<e:Group id="btn_open" width="200" height="127.27" anchorOffsetY="0" horizontalCenter="0" verticalCenter="-96.5">
+		<e:Rect top="0" bottom="0" left="0" right="0" ellipseWidth="94" ellipseHeight="103"/>
+		<e:Label text="Open" size="41" left="0" right="0" top="0" bottom="0" textAlign="center" verticalAlign="middle"/>
+	</e:Group>
+	<e:Label id="title" text="UITest1" horizontalCenter="0" top="268" size="103" stroke="2"/>
+	<e:Image width="380" height="445" x="-1" y="833" source="g1_png" anchorOffsetX="0"/>
+	<e:Image width="380" height="445" y="833" anchorOffsetX="0" right="0" source="g2_png"/>
+</e:Skin>
