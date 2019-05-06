@@ -28,7 +28,7 @@ class UIManageSystem implements ISystem{
 	public regist<T extends UIComponent,S extends UISystem>(uicpnt:new()=>T,uisys:new()=>S):Object
 	{
 		let uiEn = World.shareInstance.getEntity(UIEntity)
-		let name = ClassUtil.getClassName(uicpnt)
+		let name = ClassSystem.getClassName(uicpnt)
 		if(uiEn.compAndSysMap[name])
 		{
 			console.warn( name +" [UIComponent] has already registed.")
@@ -52,7 +52,7 @@ class UIManageSystem implements ISystem{
 	public async openUI<T extends UIComponent>(uicpnt:new()=>T,layerType?:UILayerType):Promise<T>
 	{
 		let uiEn = World.shareInstance.getEntity(UIEntity)
-		let name = ClassUtil.getClassName(uicpnt)
+		let name = ClassSystem.getClassName(uicpnt)
 		let uiDic = uiEn.compAndSysMap[name]
 		if(uiDic == null)
 		{
@@ -105,7 +105,7 @@ class UIManageSystem implements ISystem{
 	{
 		let uiEn = World.shareInstance.getEntity(UIEntity)			
 		let popedUI = uiEn.uiStack.pop()
-		if(ClassUtil.getInstanceClassName(popedUI) == ClassUtil.getClassName(uicpnt))
+		if(ClassSystem.getInstanceClassName(popedUI) == ClassSystem.getClassName(uicpnt))
 		{
 			UIManageSystem.removeDisplay(popedUI)
 			this.activeTopUI()
@@ -124,7 +124,7 @@ class UIManageSystem implements ISystem{
 	{
 		let uiEn = World.shareInstance.getEntity(UIEntity)
 		let popedUI = uiEn.uiStack.pop()
-		if(ClassUtil.getInstanceClassName(popedUI) == ClassUtil.getInstanceClassName(uicpnt))
+		if(ClassSystem.getInstanceClassName(popedUI) == ClassSystem.getInstanceClassName(uicpnt))
 		{
 			UIManageSystem.removeDisplay(popedUI)
 			this.activeTopUI()
@@ -143,7 +143,7 @@ class UIManageSystem implements ISystem{
 		for(var k in uiEn.uiStack)
 		{
 			let uicomp = uiEn.uiStack[k]
-			if(ClassUtil.getInstanceClassName(uicomp) == ClassUtil.getClassName(uicpnt))
+			if(ClassSystem.getInstanceClassName(uicomp) == ClassSystem.getClassName(uicpnt))
 				isOpen = true
 		}
 		return isOpen
@@ -159,7 +159,7 @@ class UIManageSystem implements ISystem{
 		{
 			let lastIndex = uiEn.uiStack.length -1
 			let uiComponent = uiEn.uiStack[lastIndex]
-			return ClassUtil.getInstanceClassName(uiComponent) == ClassUtil.getInstanceClassName(uicpntInstance)
+			return ClassSystem.getInstanceClassName(uiComponent) == ClassSystem.getInstanceClassName(uicpntInstance)
 		}
 		return true
 	}
@@ -197,7 +197,7 @@ class UIManageSystem implements ISystem{
 		if(len >= 1)
 		{
 			let uiComp = uiEn.uiStack[len - 1]
-			return uiEn.compAndSysMap[ClassUtil.getInstanceClassName(uiComp)]
+			return uiEn.compAndSysMap[ClassSystem.getInstanceClassName(uiComp)]
 		}
 		return null
 

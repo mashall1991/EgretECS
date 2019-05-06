@@ -1,4 +1,4 @@
-class ClassUtil {
+class ClassSystem {
 	public static getInstanceClassName<T extends Object>(instance:T):string
 	{
 		return instance["__proto__"]["__class__"]

@@ -33,7 +33,7 @@ class World {
 		for (let i = 0 ; i < components.length;i++)
 		{
 			let comp = components[i]
-			let str = ClassUtil.getClassName(comp)
+			let str = ClassSystem.getClassName(comp)
 			compNames.push(str)
 		}
 		for(var k in this.entities)
@@ -53,7 +53,7 @@ class World {
 	}
 	public getEntity<T>(entity:(new ()=>T)):T
 	{
-		return this.entities[ClassUtil.getClassName(entity)]
+		return this.entities[ClassSystem.getClassName(entity)]
 	}
 	/**
 	 * 创建实体
@@ -62,7 +62,7 @@ class World {
 	{
 		
 		let e = new entity()
-		this.entities[ClassUtil.getInstanceClassName(e)] = e
+		this.entities[ClassSystem.getInstanceClassName(e)] = e
 		return e
 	}
 	/**
@@ -70,7 +70,7 @@ class World {
 	 */
 	public createSystem<T extends ISystem>(sys:new()=>T):T
 	{	
-		let sysName = ClassUtil.getClassName(sys)
+		let sysName = ClassSystem.getClassName(sys)
 		let system = this.systems[sysName]
 		if(system == null)
 		{
@@ -91,6 +91,6 @@ class World {
 	 */
 	public getSystem<T extends ISystem>(sys:new()=>T):T
 	{
-		return this.systems[ClassUtil.getClassName(sys)]
+		return this.systems[ClassSystem.getClassName(sys)]
 	}
 }
