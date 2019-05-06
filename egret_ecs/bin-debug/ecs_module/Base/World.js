@@ -32,7 +32,7 @@ var World = (function () {
         var entities = [];
         for (var i = 0; i < components.length; i++) {
             var comp = components[i];
-            var str = ClassUtil.getClassName(comp);
+            var str = ClassSystem.getClassName(comp);
             compNames.push(str);
         }
         for (var k in this.entities) {
@@ -49,21 +49,21 @@ var World = (function () {
         return entities;
     };
     World.prototype.getEntity = function (entity) {
-        return this.entities[ClassUtil.getClassName(entity)];
+        return this.entities[ClassSystem.getClassName(entity)];
     };
     /**
      * 创建实体
      */
     World.prototype.createEntity = function (entity) {
         var e = new entity();
-        this.entities[ClassUtil.getInstanceClassName(e)] = e;
+        this.entities[ClassSystem.getInstanceClassName(e)] = e;
         return e;
     };
     /**
      * 创建系统
      */
     World.prototype.createSystem = function (sys) {
-        var sysName = ClassUtil.getClassName(sys);
+        var sysName = ClassSystem.getClassName(sys);
         var system = this.systems[sysName];
         if (system == null) {
             system = new sys();
@@ -81,9 +81,10 @@ var World = (function () {
      * 获取System
      */
     World.prototype.getSystem = function (sys) {
-        return this.systems[ClassUtil.getClassName(sys)];
+        return this.systems[ClassSystem.getClassName(sys)];
     };
     World._instance = new World();
     return World;
 }());
 __reflect(World.prototype, "World");
+//# sourceMappingURL=World.js.map

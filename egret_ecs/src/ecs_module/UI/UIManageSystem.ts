@@ -64,9 +64,9 @@ class UIManageSystem implements ISystem{
 		{
 			console.error("UI:"+ name + " has opened do not open it again.")
 		}
-		let UILoadSys = World.shareInstance.getSystem(UILoadSystem)
+		let UILoadSys = World.shareInstance.getSystem(ResourceLoadSystem)
 		if(uiComponent.resourceGroup)
-			await UILoadSys.loadResource(uiComponent.resourceGroup);
+			await UILoadSys.loadGroup(uiComponent.resourceGroup);
 		let uiSystem:UISystem = uiDic.system
 		let targetLayer:eui.UILayer = uiEn.layerMiddle
 		if(layerType != null)

@@ -1,0 +1,3 @@
+class SoundEntity extends Entity{
+	
+}

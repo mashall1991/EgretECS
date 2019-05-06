@@ -93,19 +93,22 @@ var Main = (function (_super) {
         egret.registerImplementation("eui.IAssetAdapter", assetAdapter);
         egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
         this.runGame().catch(function (e) {
+            console.log(e);
         });
     };
     Main.prototype.runGame = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var result, userInfo, uiManageSys, i;
+            var result, userInfo, uiManageSys;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         Main.STAGE = this.stage;
                         Main.mainEntrace = this;
                         this.stage.frameRate = 60;
+                        //读取预加载资源
                         return [4 /*yield*/, this.loadResource()];
                     case 1:
+                        //读取预加载资源
                         _a.sent();
                         return [4 /*yield*/, RES.getResAsync("description_json")];
                     case 2:
@@ -116,6 +119,7 @@ var Main = (function (_super) {
                         return [4 /*yield*/, platform.getUserInfo()];
                     case 4:
                         userInfo = _a.sent();
+                        //初始化事件系统
                         World.shareInstance.createSystem(EventSystem).execute();
                         World.shareInstance.createSystem(GameSystem).execute();
                         uiManageSys = World.shareInstance.createSystem(UIManageSystem);
@@ -123,8 +127,7 @@ var Main = (function (_super) {
                         uiManageSys.regist(TestUI, TestUISystem);
                         return [4 /*yield*/, uiManageSys.openUI(TestUI)];
                     case 5:
-                        i = _a.sent();
-                        console.log(i);
+                        _a.sent();
                         return [2 /*return*/];
                 }
             });
@@ -143,9 +146,9 @@ var Main = (function (_super) {
                         return [4 /*yield*/, this.loadTheme()];
                     case 2:
                         _a.sent();
-                        loadSys = World.shareInstance.createSystem(UILoadSystem);
+                        loadSys = World.shareInstance.createSystem(ResourceLoadSystem);
                         loadSys.execute();
-                        return [4 /*yield*/, loadSys.loadResource("preload")];
+                        return [4 /*yield*/, loadSys.loadGroup("preload")];
                     case 3:
                         _a.sent();
                         return [3 /*break*/, 5];
@@ -169,22 +172,7 @@ var Main = (function (_super) {
             }, _this);
         });
     };
-    /**
-     * 创建场景界面
-     * Create scene interface
-     */
-    Main.prototype.createGameScene = function () {
-    };
-    /**
-     * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
-     * Create a Bitmap object according to name keyword.As for the property of name please refer to the configuration file of resources/resource.json.
-     */
-    Main.prototype.createBitmapByName = function (name) {
-        var result = new egret.Bitmap();
-        var texture = RES.getRes(name);
-        result.texture = texture;
-        return result;
-    };
     return Main;
 }(eui.UILayer));
 __reflect(Main.prototype, "Main");
+//# sourceMappingURL=Main.js.map

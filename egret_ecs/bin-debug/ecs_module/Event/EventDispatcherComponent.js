@@ -18,3 +18,4 @@ var EventDispatcherComponent = (function (_super) {
     return EventDispatcherComponent;
 }(egret.EventDispatcher));
 __reflect(EventDispatcherComponent.prototype, "EventDispatcherComponent", ["IComponent"]);
+//# sourceMappingURL=EventDispatcherComponent.js.map

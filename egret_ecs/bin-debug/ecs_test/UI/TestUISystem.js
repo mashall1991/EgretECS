@@ -47,3 +47,4 @@ var TestUISystem = (function (_super) {
     return TestUISystem;
 }(UISystem));
 __reflect(TestUISystem.prototype, "TestUISystem");
+//# sourceMappingURL=TestUISystem.js.map

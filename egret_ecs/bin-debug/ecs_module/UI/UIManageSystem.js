@@ -60,7 +60,7 @@ var UIManageSystem = (function () {
     };
     UIManageSystem.prototype.regist = function (uicpnt, uisys) {
         var uiEn = World.shareInstance.getEntity(UIEntity);
-        var name = ClassUtil.getClassName(uicpnt);
+        var name = ClassSystem.getClassName(uicpnt);
         if (uiEn.compAndSysMap[name]) {
             console.warn(name + " [UIComponent] has already registed.");
             return uiEn.compAndSysMap[name];
@@ -84,7 +84,7 @@ var UIManageSystem = (function () {
                 switch (_a.label) {
                     case 0:
                         uiEn = World.shareInstance.getEntity(UIEntity);
-                        name = ClassUtil.getClassName(uicpnt);
+                        name = ClassSystem.getClassName(uicpnt);
                         uiDic = uiEn.compAndSysMap[name];
                         if (uiDic == null) {
                             console.error("UI:" + name + " does not regist.");
@@ -94,9 +94,9 @@ var UIManageSystem = (function () {
                         if (this.didUIOpen(uicpnt)) {
                             console.error("UI:" + name + " has opened do not open it again.");
                         }
-                        UILoadSys = World.shareInstance.getSystem(UILoadSystem);
+                        UILoadSys = World.shareInstance.getSystem(ResourceLoadSystem);
                         if (!uiComponent.resourceGroup) return [3 /*break*/, 2];
-                        return [4 /*yield*/, UILoadSys.loadResource(uiComponent.resourceGroup)];
+                        return [4 /*yield*/, UILoadSys.loadGroup(uiComponent.resourceGroup)];
                     case 1:
                         _a.sent();
                         _a.label = 2;
@@ -123,9 +123,7 @@ var UIManageSystem = (function () {
                         uiComponent.addEventListener(egret.Event.REMOVED_FROM_STAGE, uiSystem.removeToStage, uiSystem);
                         uiEn.uiStack.push(uiComponent);
                         targetLayer.addChild(uiComponent);
-                        return [2 /*return*/, new Promise(function (resolve, reject) {
-                                resolve(uiComponent);
-                            })];
+                        return [2 /*return*/, new Promise(function (resolve, reject) { resolve(uiComponent); })];
                 }
             });
         });
@@ -138,7 +136,7 @@ var UIManageSystem = (function () {
     UIManageSystem.prototype.closeUI = function (uicpnt, destory) {
         var uiEn = World.shareInstance.getEntity(UIEntity);
         var popedUI = uiEn.uiStack.pop();
-        if (ClassUtil.getInstanceClassName(popedUI) == ClassUtil.getClassName(uicpnt)) {
+        if (ClassSystem.getInstanceClassName(popedUI) == ClassSystem.getClassName(uicpnt)) {
             UIManageSystem.removeDisplay(popedUI);
             this.activeTopUI();
         }
@@ -154,7 +152,7 @@ var UIManageSystem = (function () {
     UIManageSystem.prototype.closeUI_ = function (uicpnt) {
         var uiEn = World.shareInstance.getEntity(UIEntity);
         var popedUI = uiEn.uiStack.pop();
-        if (ClassUtil.getInstanceClassName(popedUI) == ClassUtil.getInstanceClassName(uicpnt)) {
+        if (ClassSystem.getInstanceClassName(popedUI) == ClassSystem.getInstanceClassName(uicpnt)) {
             UIManageSystem.removeDisplay(popedUI);
             this.activeTopUI();
         }
@@ -168,7 +166,7 @@ var UIManageSystem = (function () {
         var uiEn = World.shareInstance.getEntity(UIEntity);
         for (var k in uiEn.uiStack) {
             var uicomp = uiEn.uiStack[k];
-            if (ClassUtil.getInstanceClassName(uicomp) == ClassUtil.getClassName(uicpnt))
+            if (ClassSystem.getInstanceClassName(uicomp) == ClassSystem.getClassName(uicpnt))
                 isOpen = true;
         }
         return isOpen;
@@ -181,7 +179,7 @@ var UIManageSystem = (function () {
         if (uiEn.uiStack.length >= 1) {
             var lastIndex = uiEn.uiStack.length - 1;
             var uiComponent = uiEn.uiStack[lastIndex];
-            return ClassUtil.getInstanceClassName(uiComponent) == ClassUtil.getInstanceClassName(uicpntInstance);
+            return ClassSystem.getInstanceClassName(uiComponent) == ClassSystem.getInstanceClassName(uicpntInstance);
         }
         return true;
     };
@@ -211,7 +209,7 @@ var UIManageSystem = (function () {
         var len = uiEn.uiStack.length;
         if (len >= 1) {
             var uiComp = uiEn.uiStack[len - 1];
-            return uiEn.compAndSysMap[ClassUtil.getInstanceClassName(uiComp)];
+            return uiEn.compAndSysMap[ClassSystem.getInstanceClassName(uiComp)];
         }
         return null;
     };
@@ -229,3 +227,4 @@ var UIManageSystem = (function () {
     return UIManageSystem;
 }());
 __reflect(UIManageSystem.prototype, "UIManageSystem", ["ISystem"]);
+//# sourceMappingURL=UIManageSystem.js.map

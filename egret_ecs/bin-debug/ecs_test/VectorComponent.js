@@ -16,3 +16,4 @@ var VectorComponent = (function (_super) {
     return VectorComponent;
 }(Component));
 __reflect(VectorComponent.prototype, "VectorComponent");
+//# sourceMappingURL=VectorComponent.js.map

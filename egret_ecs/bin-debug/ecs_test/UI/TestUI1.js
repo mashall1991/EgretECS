@@ -21,3 +21,4 @@ var TestUI1 = (function (_super) {
     return TestUI1;
 }(UIComponent));
 __reflect(TestUI1.prototype, "TestUI1");
+//# sourceMappingURL=TestUI1.js.map

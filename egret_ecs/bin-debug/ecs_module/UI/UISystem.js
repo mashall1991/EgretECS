@@ -72,3 +72,4 @@ var UISystem = (function () {
     return UISystem;
 }());
 __reflect(UISystem.prototype, "UISystem", ["ISystem", "IAddToStageSystem", "IRemoveToStageSystem", "IShowSystem", "IHideSystem", "OnAnimationEndSystem"]);
+//# sourceMappingURL=UISystem.js.map

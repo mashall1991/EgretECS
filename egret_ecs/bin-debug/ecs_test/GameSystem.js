@@ -31,3 +31,4 @@ var GameSystem = (function () {
     return GameSystem;
 }());
 __reflect(GameSystem.prototype, "GameSystem", ["ISystem"]);
+//# sourceMappingURL=GameSystem.js.map

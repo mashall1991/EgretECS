@@ -17,3 +17,4 @@ var AnEntity = (function (_super) {
     return AnEntity;
 }(Entity));
 __reflect(AnEntity.prototype, "AnEntity");
+//# sourceMappingURL=AnEntity.js.map

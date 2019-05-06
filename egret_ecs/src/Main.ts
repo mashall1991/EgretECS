@@ -86,9 +86,9 @@ class Main extends eui.UILayer {
             
             await RES.loadConfig("resource/default.res.json", "resource/");
             await this.loadTheme();
-            let loadSys = World.shareInstance.createSystem(UILoadSystem)
+            let loadSys = World.shareInstance.createSystem(ResourceLoadSystem)
             loadSys.execute()
-            await loadSys.loadResource("preload")
+            await loadSys.loadGroup("preload")
         }
         catch (e) {
             console.error(e);

@@ -9,7 +9,7 @@ var Entity = (function () {
     Entity.prototype.Entity = function () { };
     Entity.prototype.addComponent = function (component) {
         var cp = new component();
-        var type = ClassUtil.getInstanceClassName(cp);
+        var type = ClassSystem.getInstanceClassName(cp);
         var c = this.components[type];
         if (c == null) {
             this.components[type] = cp;
@@ -17,7 +17,7 @@ var Entity = (function () {
         return this.components[type];
     };
     Entity.prototype.addComponent_ = function (component) {
-        var type = ClassUtil.getInstanceClassName(component);
+        var type = ClassSystem.getInstanceClassName(component);
         var c = this.components[type];
         if (c == null) {
             this.components[type] = component;
@@ -26,34 +26,34 @@ var Entity = (function () {
         return c;
     };
     Entity.prototype.removeComponent = function (component) {
-        var type = ClassUtil.getInstanceClassName(component);
+        var type = ClassSystem.getInstanceClassName(component);
         if (this.components[type]) {
             delete this.components[type];
         }
         else {
-            console.warn("Entity:" + ClassUtil.getInstanceClassName(this) + " does not contain " + type + " .");
+            console.warn("Entity:" + ClassSystem.getInstanceClassName(this) + " does not contain " + type + " .");
         }
     };
     Entity.prototype.getComponent_ = function (t) {
-        var type = ClassUtil.getInstanceClassName(t);
+        var type = ClassSystem.getInstanceClassName(t);
         var c = this.components[type];
         if (c == null) {
-            console.warn("Entity:" + ClassUtil.getInstanceClassName(this) + " does not contain " + type + " .");
+            console.warn("Entity:" + ClassSystem.getInstanceClassName(this) + " does not contain " + type + " .");
         }
         return c;
     };
     Entity.prototype.getComponentByName = function (name) {
         var c = this.components[name];
         if (c == null) {
-            console.warn("Entity:" + ClassUtil.getInstanceClassName(this) + " does not contain " + name + " .");
+            console.warn("Entity:" + ClassSystem.getInstanceClassName(this) + " does not contain " + name + " .");
         }
         return c;
     };
     Entity.prototype.getComponent = function (cl) {
-        var name = ClassUtil.getClassName(cl);
+        var name = ClassSystem.getClassName(cl);
         var c = this.components[name];
         if (c == null) {
-            console.warn("Entity:" + ClassUtil.getInstanceClassName(this) + " does not contain " + name + " .");
+            console.warn("Entity:" + ClassSystem.getInstanceClassName(this) + " does not contain " + name + " .");
         }
         return c;
     };
@@ -68,3 +68,4 @@ var Entity = (function () {
     return Entity;
 }());
 __reflect(Entity.prototype, "Entity", ["IComponent"]);
+//# sourceMappingURL=Entity.js.map

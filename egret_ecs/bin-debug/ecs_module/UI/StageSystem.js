@@ -74,3 +74,4 @@ var StageSystem = (function () {
     return StageSystem;
 }());
 __reflect(StageSystem.prototype, "StageSystem", ["ISystem"]);
+//# sourceMappingURL=StageSystem.js.map

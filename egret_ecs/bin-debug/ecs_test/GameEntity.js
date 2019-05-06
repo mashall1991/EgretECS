@@ -16,3 +16,4 @@ var GameEntity = (function (_super) {
     return GameEntity;
 }(Entity));
 __reflect(GameEntity.prototype, "GameEntity");
+//# sourceMappingURL=GameEntity.js.map

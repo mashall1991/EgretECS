@@ -16,3 +16,4 @@ var EventEntity = (function (_super) {
     return EventEntity;
 }(Entity));
 __reflect(EventEntity.prototype, "EventEntity");
+//# sourceMappingURL=EventEntity.js.map
