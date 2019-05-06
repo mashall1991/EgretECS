@@ -1,0 +1,4 @@
+class TimerSystem {
+	public constructor() {
+	}
+}
