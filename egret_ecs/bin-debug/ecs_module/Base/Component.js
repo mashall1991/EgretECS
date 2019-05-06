@@ -8,4 +8,3 @@ var Component = (function () {
     return Component;
 }());
 __reflect(Component.prototype, "Component", ["IComponent"]);
-//# sourceMappingURL=Component.js.map

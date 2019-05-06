@@ -4,7 +4,7 @@ class Entity implements IComponent{
 	private Entity(){}
 	public components:Object = {}
 
-	public addComponent<T extends Component>(component:new ()=>T):T
+	public addComponent<T extends IComponent>(component:new ()=>T):T
 	{
 		let cp = new component()
 		let type = ClassUtil.getInstanceClassName(cp)
@@ -16,7 +16,7 @@ class Entity implements IComponent{
 		return this.components[type]
 	}
 
-	public addComponent_<T extends Component>(component:T):T
+	public addComponent_<T extends IComponent>(component:T):T
 	{
 		let type = ClassUtil.getInstanceClassName(component)
 		let c = this.components[type]
@@ -28,7 +28,7 @@ class Entity implements IComponent{
 		return c
 	}
 
-	public removeComponent<T extends Component>(component:T)
+	public removeComponent<T extends IComponent>(component:T)
 	{
 		let type = ClassUtil.getInstanceClassName(component)
 		if(this.components[type])
@@ -41,7 +41,7 @@ class Entity implements IComponent{
 		}
 	}
 
-	public getComponent_<T extends Component>(t:T):T
+	public getComponent_<T extends IComponent>(t:T):T
 	{
 		let type = ClassUtil.getInstanceClassName(t)
 		let c = this.components[type]
@@ -51,7 +51,7 @@ class Entity implements IComponent{
 		}
 		return c 
 	}
-	public getComponentByName<T extends Component>(name:string):T
+	public getComponentByName<T extends IComponent>(name:string):T
 	{
 		let c = this.components[name]
 		if(c == null)
@@ -60,7 +60,7 @@ class Entity implements IComponent{
 		}
 		return c 
 	}
-	public getComponent<T extends Component>(cl:new()=>T):T
+	public getComponent<T extends IComponent>(cl:new()=>T):T
 	{
 		let name = ClassUtil.getClassName(cl)
 		let c = this.components[name]

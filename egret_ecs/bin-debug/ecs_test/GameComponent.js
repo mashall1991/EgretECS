@@ -16,4 +16,3 @@ var GameComponent = (function (_super) {
     return GameComponent;
 }(Component));
 __reflect(GameComponent.prototype, "GameComponent");
-//# sourceMappingURL=GameComponent.js.map

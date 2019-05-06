@@ -18,4 +18,3 @@ var EventMetaComponent = (function (_super) {
     return EventMetaComponent;
 }(egret.Event));
 __reflect(EventMetaComponent.prototype, "EventMetaComponent", ["IComponent"]);
-//# sourceMappingURL=EventMetaComponent.js.map

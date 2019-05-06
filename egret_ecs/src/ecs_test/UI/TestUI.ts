@@ -5,4 +5,5 @@ class TestUI extends UIComponent{
 	public title:eui.Label
 	public btn_close:eui.Group
 	public btn_open:eui.Group
+	
 }

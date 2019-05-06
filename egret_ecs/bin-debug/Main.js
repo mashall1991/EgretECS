@@ -97,10 +97,14 @@ var Main = (function (_super) {
     };
     Main.prototype.runGame = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var result, userInfo, et, tc, vc, en, eventSys, gameSys, uiManageSys, t, sys;
+            var result, userInfo, uiManageSys, i;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.loadResource()];
+                    case 0:
+                        Main.STAGE = this.stage;
+                        Main.mainEntrace = this;
+                        this.stage.frameRate = 60;
+                        return [4 /*yield*/, this.loadResource()];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, RES.getResAsync("description_json")];
@@ -112,28 +116,15 @@ var Main = (function (_super) {
                         return [4 /*yield*/, platform.getUserInfo()];
                     case 4:
                         userInfo = _a.sent();
-                        console.log(userInfo);
-                        Main.STAGE = this.stage;
-                        Main.mainEntrace = this;
-                        this.stage.frameRate = 60;
-                        et = World.shareInstance.createEntity(AnEntity);
-                        tc = et.addComponent_(new TimeComponent());
-                        vc = et.addComponent(VectorComponent);
-                        tc.deltaTime = 10;
-                        vc.x = 10;
-                        vc.y = 20;
-                        en = World.shareInstance.entityFilter([VectorComponent, TimeComponent]);
-                        eventSys = World.shareInstance.createSystem(EventSystem);
-                        eventSys.execute();
-                        gameSys = World.shareInstance.createSystem(GameSystem);
-                        gameSys.execute();
+                        World.shareInstance.createSystem(EventSystem).execute();
+                        World.shareInstance.createSystem(GameSystem).execute();
                         uiManageSys = World.shareInstance.createSystem(UIManageSystem);
                         uiManageSys.execute();
                         uiManageSys.regist(TestUI, TestUISystem);
-                        t = uiManageSys.openUI(TestUI);
-                        sys = World.shareInstance.createSystem(UILoadSystem);
-                        // console.log(UILoadSystem.prototype)
-                        sys.execute();
+                        return [4 /*yield*/, uiManageSys.openUI(TestUI)];
+                    case 5:
+                        i = _a.sent();
+                        console.log(i);
                         return [2 /*return*/];
                 }
             });
@@ -141,23 +132,22 @@ var Main = (function (_super) {
     };
     Main.prototype.loadResource = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var loadingView, e_1;
+            var loadSys, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 4, , 5]);
-                        loadingView = new LoadingUI();
-                        this.stage.addChild(loadingView);
                         return [4 /*yield*/, RES.loadConfig("resource/default.res.json", "resource/")];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, this.loadTheme()];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, RES.loadGroup("preload", 0, loadingView)];
+                        loadSys = World.shareInstance.createSystem(UILoadSystem);
+                        loadSys.execute();
+                        return [4 /*yield*/, loadSys.loadResource("preload")];
                     case 3:
                         _a.sent();
-                        this.stage.removeChild(loadingView);
                         return [3 /*break*/, 5];
                     case 4:
                         e_1 = _a.sent();
@@ -198,4 +188,3 @@ var Main = (function (_super) {
     return Main;
 }(eui.UILayer));
 __reflect(Main.prototype, "Main");
-//# sourceMappingURL=Main.js.map

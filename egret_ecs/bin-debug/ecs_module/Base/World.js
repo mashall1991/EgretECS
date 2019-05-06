@@ -87,4 +87,3 @@ var World = (function () {
     return World;
 }());
 __reflect(World.prototype, "World");
-//# sourceMappingURL=World.js.map

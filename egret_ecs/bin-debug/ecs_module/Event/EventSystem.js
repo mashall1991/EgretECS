@@ -33,4 +33,3 @@ var EventSystem = (function () {
     return EventSystem;
 }());
 __reflect(EventSystem.prototype, "EventSystem", ["ISystem"]);
-//# sourceMappingURL=EventSystem.js.map

@@ -20,4 +20,3 @@ var TestUI2 = (function (_super) {
     return TestUI2;
 }(UIComponent));
 __reflect(TestUI2.prototype, "TestUI2");
-//# sourceMappingURL=TestUI2.js.map

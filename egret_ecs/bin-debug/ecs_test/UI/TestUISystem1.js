@@ -40,7 +40,8 @@ var TestUISystem1 = (function (_super) {
     TestUISystem1.prototype.onOpenTouch = function () {
         var sys = World.shareInstance.getSystem(UIManageSystem);
         sys.regist(TestUI2, TestUISystem2);
-        sys.openUI(TestUI2);
+        sys.openUI(TestUI2).then(function (ui) {
+        });
     };
     TestUISystem1.prototype.onAnimationEnd = function () {
         console.log("TestUI1 animationEnd");
@@ -48,4 +49,3 @@ var TestUISystem1 = (function (_super) {
     return TestUISystem1;
 }(UISystem));
 __reflect(TestUISystem1.prototype, "TestUISystem1");
-//# sourceMappingURL=TestUISystem1.js.map

@@ -5,4 +5,5 @@ class TestUI1 extends UIComponent{
 	public btn_close:eui.Group
 	public btn_open:eui.Group
 	public animation = PopUpAnimation.Scale
+	public resourceGroup:string = "test"
 }

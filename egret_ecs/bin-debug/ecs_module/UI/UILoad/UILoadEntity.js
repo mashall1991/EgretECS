@@ -8,11 +8,11 @@ var __extends = this && this.__extends || function __extends(t, e) {
 for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
 r.prototype = e.prototype, t.prototype = new r();
 };
-var GameEntity = (function (_super) {
-    __extends(GameEntity, _super);
-    function GameEntity() {
+var UILoadEntity = (function (_super) {
+    __extends(UILoadEntity, _super);
+    function UILoadEntity() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    return GameEntity;
+    return UILoadEntity;
 }(Entity));
-__reflect(GameEntity.prototype, "GameEntity");
+__reflect(UILoadEntity.prototype, "UILoadEntity");

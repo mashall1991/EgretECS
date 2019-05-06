@@ -32,7 +32,11 @@ class TestUISystem extends UISystem {
 	{
 		let sys = World.shareInstance.getSystem(UIManageSystem)
 		sys.regist(TestUI1,TestUISystem1)
-		sys.openUI(TestUI1)
+		sys.openUI(TestUI1).then((ui)=>
+		{
+			
+		})
+
 
 	}
 	public onAnimationEnd()

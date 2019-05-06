@@ -10,4 +10,3 @@ var FilterSystem = (function () {
     return FilterSystem;
 }());
 __reflect(FilterSystem.prototype, "FilterSystem", ["ISystem"]);
-//# sourceMappingURL=FilterSystem.js.map

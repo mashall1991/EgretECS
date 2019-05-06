@@ -45,4 +45,3 @@ var TestUISystem2 = (function (_super) {
     return TestUISystem2;
 }(UISystem));
 __reflect(TestUISystem2.prototype, "TestUISystem2");
-//# sourceMappingURL=TestUISystem2.js.map

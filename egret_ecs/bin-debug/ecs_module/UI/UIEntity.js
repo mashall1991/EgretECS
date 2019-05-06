@@ -35,4 +35,3 @@ var UIEntity = (function (_super) {
     return UIEntity;
 }(Entity));
 __reflect(UIEntity.prototype, "UIEntity");
-//# sourceMappingURL=UIEntity.js.map

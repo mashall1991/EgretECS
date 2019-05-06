@@ -68,4 +68,3 @@ var Entity = (function () {
     return Entity;
 }());
 __reflect(Entity.prototype, "Entity", ["IComponent"]);
-//# sourceMappingURL=Entity.js.map

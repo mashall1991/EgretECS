@@ -12,8 +12,7 @@ var UISystem = (function () {
         if (ui.needMask && ui.mask == null) {
             ui.maskBg = new egret.Sprite();
             ui.maskBg.touchEnabled = true;
-            // ui.mask.alpha = ui.maskAlpha			
-            ui.maskBg.graphics.beginFill(1, 0.7);
+            ui.maskBg.graphics.beginFill(1, ui.maskAlpha);
             ui.maskBg.graphics.drawRect(0, 0, StageSystem.stageWidth, StageSystem.stageHeight);
             ui.maskBg.graphics.endFill();
             ui.parent.addChildAt(ui.maskBg, ui.parent.getChildIndex(ui));
@@ -73,4 +72,3 @@ var UISystem = (function () {
     return UISystem;
 }());
 __reflect(UISystem.prototype, "UISystem", ["ISystem", "IAddToStageSystem", "IRemoveToStageSystem", "IShowSystem", "IHideSystem", "OnAnimationEndSystem"]);
-//# sourceMappingURL=UISystem.js.map

@@ -1,0 +1,3 @@
+class UILoadEntity  extends Entity{
+	
+}

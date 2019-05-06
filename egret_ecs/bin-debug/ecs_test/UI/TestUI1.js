@@ -15,9 +15,9 @@ var TestUI1 = (function (_super) {
         _this.skinName = "resource/eui_skins/test/uiTestSkin1.exml";
         _this.needMask = false;
         _this.animation = PopUpAnimation.Scale;
+        _this.resourceGroup = "test";
         return _this;
     }
     return TestUI1;
 }(UIComponent));
 __reflect(TestUI1.prototype, "TestUI1");
-//# sourceMappingURL=TestUI1.js.map

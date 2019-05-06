@@ -16,4 +16,3 @@ var TimeComponent = (function (_super) {
     return TimeComponent;
 }(Component));
 __reflect(TimeComponent.prototype, "TimeComponent");
-//# sourceMappingURL=TimeComponent.js.map

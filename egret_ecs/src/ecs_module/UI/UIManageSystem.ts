@@ -46,7 +46,10 @@ class UIManageSystem implements ISystem{
 	}
 
 
-	public openUI<T extends UIComponent>(uicpnt:new()=>T,layerType?:UILayerType):T
+	/**
+	 * 异步打开UI面板
+	 */
+	public async openUI<T extends UIComponent>(uicpnt:new()=>T,layerType?:UILayerType):Promise<T>
 	{
 		let uiEn = World.shareInstance.getEntity(UIEntity)
 		let name = ClassUtil.getClassName(uicpnt)
@@ -61,6 +64,9 @@ class UIManageSystem implements ISystem{
 		{
 			console.error("UI:"+ name + " has opened do not open it again.")
 		}
+		let UILoadSys = World.shareInstance.getSystem(UILoadSystem)
+		if(uiComponent.resourceGroup)
+			await UILoadSys.loadResource(uiComponent.resourceGroup);
 		let uiSystem:UISystem = uiDic.system
 		let targetLayer:eui.UILayer = uiEn.layerMiddle
 		if(layerType != null)
@@ -85,6 +91,10 @@ class UIManageSystem implements ISystem{
 		uiComponent.addEventListener(egret.Event.REMOVED_FROM_STAGE,uiSystem.removeToStage,uiSystem)
 		uiEn.uiStack.push(uiComponent)
 		targetLayer.addChild(uiComponent)
+		return new Promise<T>((resolve,reject)=>
+		{
+			resolve(uiComponent as T)
+		})
 	}
 	/**
 	 * 关闭UI面板 

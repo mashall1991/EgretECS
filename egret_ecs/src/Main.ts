@@ -58,54 +58,34 @@ class Main extends eui.UILayer {
     }
 
     private async runGame() {
+        Main.STAGE = this.stage
+        Main.mainEntrace = this
+        this.stage.frameRate = 60
+
         await this.loadResource()
         const result = await RES.getResAsync("description_json")
         await platform.login();
         const userInfo = await platform.getUserInfo();
-        console.log(userInfo);
-        Main.STAGE = this.stage
-        Main.mainEntrace = this
-        this.stage.frameRate = 60
-        let et = World.shareInstance.createEntity(AnEntity)
-        
-        let tc = et.addComponent_(new TimeComponent())
-        let vc = et.addComponent(VectorComponent)
-        tc.deltaTime = 10
-        vc.x = 10
-        vc.y = 20
-        // console.log(et)
-        // et.removeComponentByName(TimeComponent.NAME)
-        // console.log(et)
-        // et.removeComponent(vc)
-        // console.log(et["__proto__"]["__class__"])
 
-        // console.log(et)
-        let en = World.shareInstance.entityFilter<Component>([VectorComponent,TimeComponent])
-        // console.log(en)
-       
-        let eventSys = World.shareInstance.createSystem(EventSystem)
-        eventSys.execute()
-        let gameSys =  World.shareInstance.createSystem(GameSystem)
-        gameSys.execute()
+
+        World.shareInstance.createSystem(EventSystem).execute()
+        World.shareInstance.createSystem(GameSystem).execute()
+     
         let uiManageSys = World.shareInstance.createSystem(UIManageSystem)
         uiManageSys.execute()
         uiManageSys.regist(TestUI,TestUISystem)
-        let t = uiManageSys.openUI(TestUI)
-        let sys = World.shareInstance.createSystem(UILoadSystem)
-        // console.log(UILoadSystem.prototype)
-        sys.execute()
-        // console.log(World.shareInstance.updateSystems)
-        
+        let i = await uiManageSys.openUI(TestUI)
+        console.log(i)     
     }
 
     private async loadResource() {
         try {
-            const loadingView = new LoadingUI();
-            this.stage.addChild(loadingView);
+            
             await RES.loadConfig("resource/default.res.json", "resource/");
             await this.loadTheme();
-            await RES.loadGroup("preload", 0, loadingView);
-            this.stage.removeChild(loadingView);
+            let loadSys = World.shareInstance.createSystem(UILoadSystem)
+            loadSys.execute()
+            await loadSys.loadResource("preload")
         }
         catch (e) {
             console.error(e);
