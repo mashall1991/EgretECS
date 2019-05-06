@@ -91,10 +91,7 @@ class UIManageSystem implements ISystem{
 		uiComponent.addEventListener(egret.Event.REMOVED_FROM_STAGE,uiSystem.removeToStage,uiSystem)
 		uiEn.uiStack.push(uiComponent)
 		targetLayer.addChild(uiComponent)
-		return new Promise<T>((resolve,reject)=>
-		{
-			resolve(uiComponent as T)
-		})
+		return new Promise<T>((resolve,reject)=>{resolve(uiComponent as T)})
 	}
 	/**
 	 * 关闭UI面板 

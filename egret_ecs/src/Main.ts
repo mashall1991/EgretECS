@@ -54,28 +54,31 @@ class Main extends eui.UILayer {
 
 
         this.runGame().catch(e => {
+            console.log(e)
         })
     }
 
     private async runGame() {
+
         Main.STAGE = this.stage
         Main.mainEntrace = this
         this.stage.frameRate = 60
 
+        //读取预加载资源
         await this.loadResource()
         const result = await RES.getResAsync("description_json")
         await platform.login();
         const userInfo = await platform.getUserInfo();
 
-
+        //初始化事件系统
         World.shareInstance.createSystem(EventSystem).execute()
         World.shareInstance.createSystem(GameSystem).execute()
-     
+        
+        //初始化UI管理系统
         let uiManageSys = World.shareInstance.createSystem(UIManageSystem)
         uiManageSys.execute()
         uiManageSys.regist(TestUI,TestUISystem)
-        let i = await uiManageSys.openUI(TestUI)
-        console.log(i)     
+        await uiManageSys.openUI(TestUI)
     }
 
     private async loadResource() {
@@ -103,23 +106,4 @@ class Main extends eui.UILayer {
 
         })
     }
-
-    /**
-     * 创建场景界面
-     * Create scene interface
-     */
-    protected createGameScene(): void {
-       
-    }
-    /**
-     * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
-     * Create a Bitmap object according to name keyword.As for the property of name please refer to the configuration file of resources/resource.json.
-     */
-    private createBitmapByName(name: string): egret.Bitmap {
-        let result = new egret.Bitmap();
-        let texture: egret.Texture = RES.getRes(name);
-        result.texture = texture;
-        return result;
-    }
-
 }
