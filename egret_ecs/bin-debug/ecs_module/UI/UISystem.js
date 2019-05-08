@@ -6,7 +6,6 @@ var UISystem = (function () {
         this.instanceId = IdGenerator.GenerateInstanceId();
     }
     UISystem.prototype.addToStage = function () {
-        var _this = this;
         var sys = World.shareInstance.createSystem(UIManageSystem);
         var ui = sys.FindUIComponentWithSysId(this.instanceId);
         if (ui.needMask && ui.mask == null) {
@@ -20,20 +19,10 @@ var UISystem = (function () {
                 ui.maskBg.addEventListener(egret.TouchEvent.TOUCH_TAP, this.maskClickHandler, this);
             }
         }
-        if (ui.centerFlag) {
-            ui.anchorOffsetX = ui.width / 2;
-            ui.anchorOffsetY = ui.height / 2;
-            ui.x = StageSystem.stageWidth / 2;
-            ui.y = StageSystem.stageHeight / 2;
-        }
         sys.activeTopUI();
-        this.doOpenAnimaton(ui, function () {
-            ui.alpha = 1;
-            ui.scaleX = 1;
-            ui.scaleY = 1;
-            _this.onAnimationEnd();
-        });
+        this.moveToCenter(ui);
         this.onShow();
+        this.doOpenAnimaton(ui, this.animationCallBack);
     };
     UISystem.prototype.removeToStage = function () {
         var sys = World.shareInstance.createSystem(UIManageSystem);
@@ -43,6 +32,20 @@ var UISystem = (function () {
             ui.mask = null;
         }
         this.onHide();
+    };
+    UISystem.prototype.moveToCenter = function (ui) {
+        if (ui.centerFlag) {
+            ui.anchorOffsetX = ui.width / 2;
+            ui.anchorOffsetY = ui.height / 2;
+            ui.x = StageSystem.stageWidth / 2;
+            ui.y = StageSystem.stageHeight / 2;
+        }
+    };
+    UISystem.prototype.animationCallBack = function (ui) {
+        ui.alpha = 1;
+        ui.scaleX = 1;
+        ui.scaleY = 1;
+        this.onAnimationEnd();
     };
     UISystem.prototype.maskClickHandler = function () {
         console.log("mask touched");
@@ -57,16 +60,17 @@ var UISystem = (function () {
             ui.alpha = 0.5;
             egret.Tween.get(ui).to({ alpha: 1 }, 100);
             egret.Tween.get(ui).to({ scaleX: 1, scaleY: 1 }, 150)
-                .call(callBack);
+                .call(callBack, this, [ui]);
         }
         else if (ui.animation == PopUpAnimation.MoveUp) {
             //TODO:增加移入动画
-            callBack();
+            this.animationCallBack(ui);
         }
         else {
-            callBack();
+            this.animationCallBack(ui);
         }
     };
+    //TODO:
     UISystem.prototype.doCloseAnimaton = function (ui, callBack) {
     };
     return UISystem;

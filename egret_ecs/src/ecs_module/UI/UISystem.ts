@@ -23,24 +23,12 @@ abstract class UISystem implements ISystem,IAddToStageSystem,IRemoveToStageSyste
 				ui.maskBg.addEventListener(egret.TouchEvent.TOUCH_TAP, this.maskClickHandler, this);
 			}
 		}
-		if(ui.centerFlag)
-		{
-			ui.anchorOffsetX = ui.width/2
-			ui.anchorOffsetY = ui.height/2
-			ui.x = StageSystem.stageWidth/2
-			ui.y = StageSystem.stageHeight/2
-		}
-		sys.activeTopUI()
-		this.doOpenAnimaton(ui,()=>
-		{
-			ui.alpha = 1
-			ui.scaleX = 1
-			ui.scaleY = 1
-			this.onAnimationEnd()
-		})
-		this.onShow()
-
+		sys.activeTopUI();
+		this.moveToCenter(ui)
+		this.onShow();
+		this.doOpenAnimaton(ui,this.animationCallBack);
 	}
+
 	public removeToStage(){
 		let sys = World.shareInstance.createSystem(UIManageSystem)
 		let ui = sys.FindUIComponentWithSysId(this.instanceId)
@@ -50,6 +38,23 @@ abstract class UISystem implements ISystem,IAddToStageSystem,IRemoveToStageSyste
 			ui.mask = null
 		}
 		this.onHide()
+	}
+	public moveToCenter(ui:UIComponent)
+	{
+		if(ui.centerFlag)
+		{
+			ui.anchorOffsetX = ui.width/2
+			ui.anchorOffsetY = ui.height/2
+			ui.x = StageSystem.stageWidth/2
+			ui.y = StageSystem.stageHeight/2
+		}
+	}
+	private animationCallBack(ui)
+	{
+		ui.alpha = 1
+		ui.scaleX = 1
+		ui.scaleY = 1
+		this.onAnimationEnd()
 	}
 	private maskClickHandler()
 	{
@@ -67,22 +72,22 @@ abstract class UISystem implements ISystem,IAddToStageSystem,IRemoveToStageSyste
 			ui.alpha = 0.5
 			egret.Tween.get(ui).to({alpha:1},100)			
 			egret.Tween.get(ui).to({scaleX:1,scaleY:1},150)
-			.call(callBack)
+			.call(callBack,this,[ui])
 		}
 		else if(ui.animation == PopUpAnimation.MoveUp)
 		{
 			//TODO:增加移入动画
-			callBack()
+			this.animationCallBack(ui)
 		}
 		else
 		{
-			callBack()
+			this.animationCallBack(ui)
 		}
 		
 	}
+	//TODO:
 	private doCloseAnimaton(ui,callBack:Function)
 	{
-		
 		
 	}
 }
