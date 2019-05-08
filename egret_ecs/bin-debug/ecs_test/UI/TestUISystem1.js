@@ -18,6 +18,7 @@ var TestUISystem1 = (function (_super) {
     };
     TestUISystem1.prototype.onActive = function () {
         console.log("TestUISystem1,onActive");
+        World.shareInstance.getSystem(SoundSystem).playMusic("test1.mp3").catch(function (e) { console.log(e); });
     };
     TestUISystem1.prototype.onUILoaded = function () {
         console.log("TestUISystem1,onUILoaded");
@@ -40,8 +41,8 @@ var TestUISystem1 = (function (_super) {
     TestUISystem1.prototype.onOpenTouch = function () {
         var sys = World.shareInstance.getSystem(UIManageSystem);
         sys.regist(TestUI2, TestUISystem2);
-        sys.openUI(TestUI2).then(function (ui) {
-        });
+        sys.openUI(TestUI2).then(function (ui) { });
+        World.shareInstance.getSystem(SoundSystem).playSoundEffect("diamond.mp3");
     };
     TestUISystem1.prototype.onAnimationEnd = function () {
         console.log("TestUI1 animationEnd");

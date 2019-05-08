@@ -72,8 +72,10 @@ class Main extends eui.UILayer {
 
         //初始化事件系统
         World.shareInstance.createSystem(EventSystem).execute()
-        World.shareInstance.createSystem(GameSystem).execute()
         
+        World.shareInstance.createSystem(GameSystem).execute()
+        World.shareInstance.createSystem(SoundSystem).execute()
+
         //初始化UI管理系统
         let uiManageSys = World.shareInstance.createSystem(UIManageSystem)
         uiManageSys.execute()

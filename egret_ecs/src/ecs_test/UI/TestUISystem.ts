@@ -34,9 +34,8 @@ class TestUISystem extends UISystem {
 		sys.regist(TestUI1,TestUISystem1)
 		sys.openUI(TestUI1).then((ui)=>
 		{
-			
-		})
 
+		})
 
 	}
 	public onAnimationEnd()

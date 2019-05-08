@@ -6,6 +6,7 @@ class UIManageSystem implements ISystem{
 		let uiEn = World.shareInstance.createEntity(UIEntity)
 		let gameEn = World.shareInstance.getEntity(GameEntity)
 		let main = gameEn.getComponent(GameComponent).main
+		
 		/**********隐藏层************/
 		uiEn.layerBottom = new eui.UILayer
 		main.addChild(uiEn.layerBottom)
@@ -13,6 +14,7 @@ class UIManageSystem implements ISystem{
 		/**********Panel UI 使用层 begin*********** */
 		uiEn.layerMiddle = new eui.UILayer
 		main.addChild(uiEn.layerMiddle)
+
 		/*************Panel UI 使用层 end******** */
 
 		/**********提示类UI层************/

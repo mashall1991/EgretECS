@@ -122,6 +122,7 @@ var Main = (function (_super) {
                         //初始化事件系统
                         World.shareInstance.createSystem(EventSystem).execute();
                         World.shareInstance.createSystem(GameSystem).execute();
+                        World.shareInstance.createSystem(SoundSystem).execute();
                         uiManageSys = World.shareInstance.createSystem(UIManageSystem);
                         uiManageSys.execute();
                         uiManageSys.regist(TestUI, TestUISystem);

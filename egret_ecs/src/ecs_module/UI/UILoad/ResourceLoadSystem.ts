@@ -18,7 +18,7 @@ class ResourceLoadSystem implements ISystem,RES.PromiseTaskReporter {
 	public getURL(path:PATH,name:string)
 	{
 		let en = World.shareInstance.getEntity(ResourceLoadEntity)
-		return en[path] + name
+		return en.pathMap[path] + name
 	}
 
 	public async loadGroup(group)
@@ -47,9 +47,9 @@ class ResourceLoadSystem implements ISystem,RES.PromiseTaskReporter {
      * @param thisObject 回调函数的 this 引用。
      * @param type 文件类型(可选)。请使用 ResourceItem 类中定义的静态常量。若不设置将根据文件扩展名生成。
 	 */
-	public loadResByURL(url:string,compFunc?: Function, thisObject?: any, type?: string)
+	public async loadResByURL(url:string,compFunc?: Function, thisObject?: any, type?: string)
 	{
-		RES.getResByUrl(url,compFunc,thisObject,type)
+	 	return await RES.getResByUrl(url,compFunc,thisObject,type)
 	}
 
 	onProgress(current: number, total: number): void {

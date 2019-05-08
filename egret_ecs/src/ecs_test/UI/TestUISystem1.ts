@@ -7,6 +7,7 @@ class TestUISystem1 extends UISystem {
 	public onActive()
 	{
 		console.log("TestUISystem1,onActive")
+		World.shareInstance.getSystem(SoundSystem).playMusic("test1.mp3").catch((e)=>{console.log(e)})
 	}
 	public onUILoaded()
 	{
@@ -34,10 +35,8 @@ class TestUISystem1 extends UISystem {
 	{
 		let sys = World.shareInstance.getSystem(UIManageSystem)
 		sys.regist(TestUI2,TestUISystem2)
-		sys.openUI(TestUI2).then((ui)=>
-		{
-			
-		})
+		sys.openUI(TestUI2).then((ui)=>{})
+		World.shareInstance.getSystem(SoundSystem).playSoundEffect("diamond.mp3")
 	}
 	public onAnimationEnd()
 	{

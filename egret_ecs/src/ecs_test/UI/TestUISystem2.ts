@@ -18,10 +18,8 @@ class TestUISystem2 extends UISystem {
 		let sys = World.shareInstance.getSystem(UIManageSystem)
 		let comp = sys.FindUIComponentWithSysId(this.instanceId) as TestUI2
 		comp.btn_close.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onCloseTouch,this)
-		if(comp.clickMaskToHide)
-		{
-			// comp.mask.addEventListener(egret.TouchEvent.TOUCH_TAP, this.maskClickHandler, this);
-		}
+		World.shareInstance.getSystem(SoundSystem).playMusic("test2.mp3")
+		
 	}
 	public onHide()
 	{

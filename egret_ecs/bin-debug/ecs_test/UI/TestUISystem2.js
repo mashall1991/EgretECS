@@ -27,9 +27,7 @@ var TestUISystem2 = (function (_super) {
         var sys = World.shareInstance.getSystem(UIManageSystem);
         var comp = sys.FindUIComponentWithSysId(this.instanceId);
         comp.btn_close.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onCloseTouch, this);
-        if (comp.clickMaskToHide) {
-            // comp.mask.addEventListener(egret.TouchEvent.TOUCH_TAP, this.maskClickHandler, this);
-        }
+        World.shareInstance.getSystem(SoundSystem).playMusic("test2.mp3");
     };
     TestUISystem2.prototype.onHide = function () {
         console.log("TestUISystem2,onHide");
