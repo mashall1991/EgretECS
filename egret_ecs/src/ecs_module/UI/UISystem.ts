@@ -83,7 +83,6 @@ abstract class UISystem implements ISystem,IAddToStageSystem,IRemoveToStageSyste
 		{
 			this.animationCallBack(ui)
 		}
-		
 	}
 	//TODO:
 	private doCloseAnimaton(ui,callBack:Function)

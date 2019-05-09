@@ -79,7 +79,7 @@ var UIManageSystem = (function () {
      */
     UIManageSystem.prototype.openUI = function (uicpnt, layerType) {
         return __awaiter(this, void 0, void 0, function () {
-            var uiEn, name, uiDic, uiComponent, UILoadSys, uiSystem, targetLayer;
+            var uiEn, name, uiDic, uiComponent, uiSystem, targetLayer, UILoadSys;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -93,7 +93,10 @@ var UIManageSystem = (function () {
                         uiComponent = uiDic.ui;
                         if (this.didUIOpen(uicpnt)) {
                             console.error("UI:" + name + " has opened do not open it again.");
+                            return [2 /*return*/];
                         }
+                        uiSystem = uiDic.system;
+                        targetLayer = uiEn.layerMiddle;
                         UILoadSys = World.shareInstance.getSystem(ResourceLoadSystem);
                         if (!uiComponent.resourceGroup) return [3 /*break*/, 2];
                         return [4 /*yield*/, UILoadSys.loadGroup(uiComponent.resourceGroup)];
@@ -101,8 +104,7 @@ var UIManageSystem = (function () {
                         _a.sent();
                         _a.label = 2;
                     case 2:
-                        uiSystem = uiDic.system;
-                        targetLayer = uiEn.layerMiddle;
+                        uiSystem.onUILoaded();
                         if (layerType != null) {
                             switch (layerType) {
                                 case UILayerType.UIBottom:

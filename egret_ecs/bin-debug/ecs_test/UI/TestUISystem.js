@@ -18,6 +18,8 @@ var TestUISystem = (function (_super) {
     };
     TestUISystem.prototype.onActive = function () {
         console.log("TestUISystem,onActive");
+        var timer = World.shareInstance.getSystem(TimerSystem);
+        timer.start();
     };
     TestUISystem.prototype.onUILoaded = function () {
         console.log("TestUISystem,onUILoaded");
@@ -28,9 +30,14 @@ var TestUISystem = (function (_super) {
         var comp = sys.FindUIComponentWithSysId(this.instanceId);
         comp.btn_close.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onCloseTouch, this);
         comp.btn_open.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onOpenTouch, this);
+        var timer = World.shareInstance.getSystem(TimerSystem);
+        timer.schedule(this.callInSecond, this, 1);
     };
     TestUISystem.prototype.onHide = function () {
         console.log("TestUISystem,onHide");
+    };
+    TestUISystem.prototype.onAnimationEnd = function () {
+        console.log("TestUI animationEnd");
     };
     TestUISystem.prototype.onCloseTouch = function () {
         console.log("close TestUI");
@@ -38,11 +45,13 @@ var TestUISystem = (function (_super) {
     TestUISystem.prototype.onOpenTouch = function () {
         var sys = World.shareInstance.getSystem(UIManageSystem);
         sys.regist(TestUI1, TestUISystem1);
-        sys.openUI(TestUI1).then(function (ui) {
-        });
+        sys.openUI(TestUI1).then(function (ui) { });
+        var timer = World.shareInstance.getSystem(TimerSystem);
+        // timer.removeSchedule(this.callInSecond,this)
+        timer.pause();
     };
-    TestUISystem.prototype.onAnimationEnd = function () {
-        console.log("TestUI animationEnd");
+    TestUISystem.prototype.callInSecond = function () {
+        console.log(" timer call back.");
     };
     return TestUISystem;
 }(UISystem));

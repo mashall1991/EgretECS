@@ -83,9 +83,11 @@ var Main = (function (_super) {
         });
         egret.lifecycle.onPause = function () {
             egret.ticker.pause();
+            console.log("Main, pause");
         };
         egret.lifecycle.onResume = function () {
             egret.ticker.resume();
+            console.log("Main, resume");
         };
         //inject the custom material parser
         //注入自定义的素材解析器
@@ -121,6 +123,7 @@ var Main = (function (_super) {
                         userInfo = _a.sent();
                         //初始化事件系统
                         World.shareInstance.createSystem(EventSystem).execute();
+                        World.shareInstance.createSystem(TimerSystem).execute();
                         World.shareInstance.createSystem(GameSystem).execute();
                         World.shareInstance.createSystem(SoundSystem).execute();
                         uiManageSys = World.shareInstance.createSystem(UIManageSystem);

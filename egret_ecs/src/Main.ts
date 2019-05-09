@@ -40,10 +40,12 @@ class Main extends eui.UILayer {
 
         egret.lifecycle.onPause = () => {
             egret.ticker.pause();
+            console.log("Main, pause")
         }
 
         egret.lifecycle.onResume = () => {
             egret.ticker.resume();
+            console.log("Main, resume")
         }
 
         //inject the custom material parser
@@ -72,7 +74,7 @@ class Main extends eui.UILayer {
 
         //初始化事件系统
         World.shareInstance.createSystem(EventSystem).execute()
-        
+        World.shareInstance.createSystem(TimerSystem).execute()
         World.shareInstance.createSystem(GameSystem).execute()
         World.shareInstance.createSystem(SoundSystem).execute()
 
