@@ -37,6 +37,11 @@ class TimerSystem implements ISystem,IUpdateSystem{
 	public schedule(call:Function,thisObject:Object,interval:number,delay:number = 0,repeat:number = -1)
 	{
 		let tc = this.getTimerEntity().getComponent(TimerComponent)
+		if(this.isDuplicate(tc,call,thisObject))
+		{
+			console.log("Duplicate schedule.")
+			return
+		}
 		let timerMeta = new TimerMeta(call,thisObject,interval,delay,repeat)
 		tc.timerList.push(timerMeta)
 	}
@@ -84,5 +89,17 @@ class TimerSystem implements ISystem,IUpdateSystem{
 				}
 			}
 		}
+	}
+	private isDuplicate(tc:TimerComponent,call:Function,thisObject:Object)
+	{
+		for(var k in tc.timerList)
+		{
+			let timerMeta = tc.timerList[k] as TimerMeta
+			if(timerMeta.callFunction == call && timerMeta.thisObject == thisObject)
+			{
+				return true
+			}			
+		}
+		return false
 	}
 }
