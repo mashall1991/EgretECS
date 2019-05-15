@@ -96,9 +96,7 @@ class TimerSystem implements ISystem,IUpdateSystem{
 		{
 			let timerMeta = tc.timerList[k] as TimerMeta
 			if(timerMeta.callFunction == call && timerMeta.thisObject == thisObject)
-			{
 				return true
-			}			
 		}
 		return false
 	}

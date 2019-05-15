@@ -100,7 +100,7 @@ var Main = (function (_super) {
     };
     Main.prototype.runGame = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var result, userInfo, uiManageSys;
+            var result, uiManageSys;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -112,15 +112,15 @@ var Main = (function (_super) {
                     case 1:
                         //读取预加载资源
                         _a.sent();
-                        return [4 /*yield*/, RES.getResAsync("description_json")];
+                        return [4 /*yield*/, RES.getResAsync("description_json")
+                            // await platform.login();
+                            // const userInfo = await platform.getUserInfo();
+                            //初始化事件系统
+                        ];
                     case 2:
                         result = _a.sent();
-                        return [4 /*yield*/, platform.login()];
-                    case 3:
-                        _a.sent();
-                        return [4 /*yield*/, platform.getUserInfo()];
-                    case 4:
-                        userInfo = _a.sent();
+                        // await platform.login();
+                        // const userInfo = await platform.getUserInfo();
                         //初始化事件系统
                         World.shareInstance.createSystem(EventSystem).execute();
                         World.shareInstance.createSystem(TimerSystem).execute();
@@ -129,9 +129,13 @@ var Main = (function (_super) {
                         uiManageSys = World.shareInstance.createSystem(UIManageSystem);
                         uiManageSys.execute();
                         uiManageSys.regist(TestUI, TestUISystem);
-                        return [4 /*yield*/, uiManageSys.openUI(TestUI)];
-                    case 5:
+                        return [4 /*yield*/, uiManageSys.openUI(TestUI)
+                            //Test
+                        ];
+                    case 3:
                         _a.sent();
+                        //Test
+                        World.shareInstance.createSystem(PoolSystem).execute();
                         return [2 /*return*/];
                 }
             });

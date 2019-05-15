@@ -69,20 +69,24 @@ class Main extends eui.UILayer {
         //读取预加载资源
         await this.loadResource()
         const result = await RES.getResAsync("description_json")
-        await platform.login();
-        const userInfo = await platform.getUserInfo();
+        // await platform.login();
+        // const userInfo = await platform.getUserInfo();
 
         //初始化事件系统
         World.shareInstance.createSystem(EventSystem).execute()
         World.shareInstance.createSystem(TimerSystem).execute()
         World.shareInstance.createSystem(GameSystem).execute()
         World.shareInstance.createSystem(SoundSystem).execute()
+        World.shareInstance.createSystem(PoolSystem).execute()
 
         //初始化UI管理系统
         let uiManageSys = World.shareInstance.createSystem(UIManageSystem)
         uiManageSys.execute()
         uiManageSys.regist(TestUI,TestUISystem)
         await uiManageSys.openUI(TestUI)
+
+        //Test
+        
     }
 
     private async loadResource() {

@@ -9,5 +9,4 @@ enum PATH
 }
 
 class ResourceLoadEntity  extends Entity{
-	public pathMap:Object = {}
 }

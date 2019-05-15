@@ -42,6 +42,4 @@ class TestUISystem1 extends UISystem {
 	{
 		console.log("TestUI1 animationEnd")
 	}
-	
-
 }

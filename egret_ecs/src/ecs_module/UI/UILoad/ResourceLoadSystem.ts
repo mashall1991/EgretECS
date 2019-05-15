@@ -5,20 +5,20 @@ class ResourceLoadSystem implements ISystem,RES.PromiseTaskReporter {
 	{
 		console.log("UIloadSystem executed.")
 		let en = World.shareInstance.createEntity(ResourceLoadEntity)
-
+		let comp = en.addComponent(ResourceLoadComponent)
 		let prefix = "resource/Assets"
-		en.pathMap[PATH.ANIMATION] = prefix + "/animation/"
-		en.pathMap[PATH.CONFIG] = prefix + "/config/"
-		en.pathMap[PATH.ITEMS] = prefix + "/items/"
-		en.pathMap[PATH.PICTURE] = prefix + "/picture/"
-		en.pathMap[PATH.SOUND] = prefix + "/sound/"
-		en.pathMap[PATH.EFFECT] = prefix + "/effect/"
+		comp.pathMap[PATH.ANIMATION] = prefix + "/animation/"
+		comp.pathMap[PATH.CONFIG] = prefix + "/config/"
+		comp.pathMap[PATH.ITEMS] = prefix + "/items/"
+		comp.pathMap[PATH.PICTURE] = prefix + "/picture/"
+		comp.pathMap[PATH.SOUND] = prefix + "/sound/"
+		comp.pathMap[PATH.EFFECT] = prefix + "/effect/"
 	}
 
 	public getURL(path:PATH,name:string)
 	{
-		let en = World.shareInstance.getEntity(ResourceLoadEntity)
-		return en.pathMap[path] + name
+		let comp = World.shareInstance.getEntity(ResourceLoadEntity).getComponent(ResourceLoadComponent)
+		return comp.pathMap[path] + name
 	}
 
 	public async loadGroup(group)
