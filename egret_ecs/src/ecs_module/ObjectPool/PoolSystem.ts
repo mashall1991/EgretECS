@@ -24,7 +24,7 @@ class PoolSystem implements ISystem {
 		return array
 	}
 
-	public spawn<T>(type:new()=>T)
+	public spawn<T>(type:new()=>T):T
 	{
 		let comp = this.getEntity().getComponent(PoolComponent)
 		let name = ClassSystem.getClassName(type)

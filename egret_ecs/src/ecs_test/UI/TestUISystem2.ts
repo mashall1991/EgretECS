@@ -19,7 +19,15 @@ class TestUISystem2 extends UISystem {
 		let comp = sys.FindUIComponentWithSysId(this.instanceId) as TestUI2
 		comp.btn_close.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onCloseTouch,this)
 		World.shareInstance.getSystem(SoundSystem).playMusic("test2.mp3")
-		
+		let animSys = World.shareInstance.getSystem(AnimationSystem)
+		animSys.createAnimation("knight",AnimationType.DragonBoneAnimation).then((animComp:AnimationComponent)=>
+		{
+			comp.addChild(animComp.animator)
+			animComp.animator.x = StageSystem.stageWidth / 2
+			animComp.animator.y = StageSystem.stageHeight / 2
+			animSys.play(animComp,"animation")
+		})
+
 	}
 	public onHide()
 	{

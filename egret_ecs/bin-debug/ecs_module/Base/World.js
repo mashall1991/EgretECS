@@ -3,6 +3,7 @@ var __reflect = (this && this.__reflect) || function (p, c, t) {
 };
 var World = (function () {
     function World() {
+        this.entityArray = new Array();
         /**
          * 所有实体
          */
@@ -35,9 +36,9 @@ var World = (function () {
             var str = ClassSystem.getClassName(comp);
             compNames.push(str);
         }
-        for (var k in this.entities) {
+        for (var k in this.entityArray) {
             var containAllComponents = true;
-            var en = this.entities[k];
+            var en = this.entityArray[k];
             for (var i = 0; i < compNames.length; i++) {
                 var componentName = compNames[i];
                 var comp = en.getComponentByName(componentName);
@@ -53,10 +54,16 @@ var World = (function () {
     };
     /**
      * 创建实体
+     * @param entity 实体类名
+     * @param multiple 是否为多个实体，多个实体的话会保存进数组，取实体的时候必须用entityFilter函数
      */
-    World.prototype.createEntity = function (entity) {
+    World.prototype.createEntity = function (entity, multiple) {
+        if (multiple === void 0) { multiple = false; }
         var e = new entity();
-        this.entities[ClassSystem.getInstanceClassName(e)] = e;
+        if (!multiple) {
+            this.entities[ClassSystem.getInstanceClassName(e)] = e;
+        }
+        this.entityArray.push(e);
         return e;
     };
     /**

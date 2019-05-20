@@ -28,6 +28,13 @@ var TestUISystem2 = (function (_super) {
         var comp = sys.FindUIComponentWithSysId(this.instanceId);
         comp.btn_close.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onCloseTouch, this);
         World.shareInstance.getSystem(SoundSystem).playMusic("test2.mp3");
+        var animSys = World.shareInstance.getSystem(AnimationSystem);
+        animSys.createAnimation("knight", AnimationType.DragonBoneAnimation).then(function (animComp) {
+            comp.addChild(animComp.animator);
+            animComp.animator.x = StageSystem.stageWidth / 2;
+            animComp.animator.y = StageSystem.stageHeight / 2;
+            animSys.play(animComp, "animation");
+        });
     };
     TestUISystem2.prototype.onHide = function () {
         console.log("TestUISystem2,onHide");

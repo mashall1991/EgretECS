@@ -126,6 +126,8 @@ var Main = (function (_super) {
                         World.shareInstance.createSystem(TimerSystem).execute();
                         World.shareInstance.createSystem(GameSystem).execute();
                         World.shareInstance.createSystem(SoundSystem).execute();
+                        World.shareInstance.createSystem(PoolSystem).execute();
+                        World.shareInstance.createSystem(AnimationSystem).execute();
                         uiManageSys = World.shareInstance.createSystem(UIManageSystem);
                         uiManageSys.execute();
                         uiManageSys.regist(TestUI, TestUISystem);
@@ -134,8 +136,6 @@ var Main = (function (_super) {
                         ];
                     case 3:
                         _a.sent();
-                        //Test
-                        World.shareInstance.createSystem(PoolSystem).execute();
                         return [2 /*return*/];
                 }
             });

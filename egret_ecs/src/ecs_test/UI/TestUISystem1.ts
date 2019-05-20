@@ -20,6 +20,7 @@ class TestUISystem1 extends UISystem {
 		let comp = sys.FindUIComponentWithSysId(this.instanceId) as TestUI1
 		comp.btn_close.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onCloseTouch,this);
 		comp.btn_open.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onOpenTouch,this);
+		
 	}
 	public onHide()
 	{
