@@ -11,6 +11,32 @@ class TestUISystem2 extends UISystem {
 	public onUILoaded()
 	{
 		console.log("TestUISystem2,onUILoaded")
+		let animSys = World.shareInstance.getSystem(AnimationSystem)
+		let sys = World.shareInstance.getSystem(UIManageSystem)
+		let comp = sys.FindUIComponentWithSysId(this.instanceId) as TestUI2
+		animSys.createAnimation("knight",AnimationType.DragonBoneAnimation,1,true).then((animComp:AnimationComponent)=>
+		{
+			comp.addChild(animComp.animator)
+			animComp.animator.x = StageSystem.stageWidth / 2
+			animComp.animator.y = StageSystem.stageHeight / 2
+			animSys.play(animComp,"animation")
+		})
+		animSys.createAnimation("2001",AnimationType.ImageSequenceAnimation,1,true).then((animComp:AnimationComponent)=>
+		{
+			console.log("2001 loaded")
+			comp.addChild(animComp.animator)
+			animComp.animator.x = StageSystem.stageWidth / 2
+			animComp.animator.y = StageSystem.stageHeight / 2 + 200
+			animSys.play(animComp,"stand_left")
+		})
+		animSys.createAnimation("2001",AnimationType.ImageSequenceAnimation,1,true).then((animComp:AnimationComponent)=>
+		{
+			console.log("2001 loaded")
+			comp.addChild(animComp.animator)
+			animComp.animator.x = StageSystem.stageWidth / 2 + 50
+			animComp.animator.y = StageSystem.stageHeight / 2 + 200
+			animSys.play(animComp,"attack_left")
+		})
 	}
 	public onShow()
 	{
@@ -19,15 +45,6 @@ class TestUISystem2 extends UISystem {
 		let comp = sys.FindUIComponentWithSysId(this.instanceId) as TestUI2
 		comp.btn_close.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onCloseTouch,this)
 		World.shareInstance.getSystem(SoundSystem).playMusic("test2.mp3")
-		let animSys = World.shareInstance.getSystem(AnimationSystem)
-		animSys.createAnimation("knight",AnimationType.DragonBoneAnimation).then((animComp:AnimationComponent)=>
-		{
-			comp.addChild(animComp.animator)
-			animComp.animator.x = StageSystem.stageWidth / 2
-			animComp.animator.y = StageSystem.stageHeight / 2
-			animSys.play(animComp,"animation")
-		})
-
 	}
 	public onHide()
 	{

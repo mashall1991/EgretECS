@@ -16,4 +16,5 @@ abstract class UIComponent extends eui.Component implements IComponent {
 	public clickMaskToHide:boolean = true
 	public animation: PopUpAnimation = PopUpAnimation.Scale
 	public resourceGroup:string 
+	public resourceLoaded = false
 }

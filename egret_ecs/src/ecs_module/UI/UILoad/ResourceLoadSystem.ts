@@ -32,6 +32,10 @@ class ResourceLoadSystem implements ISystem,RES.PromiseTaskReporter {
 			Main.STAGE.removeChild(loadingView);
         }	
 	}
+	public isGroupLoaded(group)
+	{
+		return RES.isGroupLoaded(group)
+	}
 	public destroyRes(source:string)
     {
         if(source == "main" || source == "preload") return

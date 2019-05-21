@@ -26,6 +26,7 @@ var UIComponent = (function (_super) {
         _this.centerFlag = true;
         _this.clickMaskToHide = true;
         _this.animation = PopUpAnimation.Scale;
+        _this.resourceLoaded = false;
         return _this;
     }
     return UIComponent;

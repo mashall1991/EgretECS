@@ -21,6 +21,29 @@ var TestUISystem2 = (function (_super) {
     };
     TestUISystem2.prototype.onUILoaded = function () {
         console.log("TestUISystem2,onUILoaded");
+        var animSys = World.shareInstance.getSystem(AnimationSystem);
+        var sys = World.shareInstance.getSystem(UIManageSystem);
+        var comp = sys.FindUIComponentWithSysId(this.instanceId);
+        animSys.createAnimation("knight", AnimationType.DragonBoneAnimation, 1, true).then(function (animComp) {
+            comp.addChild(animComp.animator);
+            animComp.animator.x = StageSystem.stageWidth / 2;
+            animComp.animator.y = StageSystem.stageHeight / 2;
+            animSys.play(animComp, "animation");
+        });
+        animSys.createAnimation("2001", AnimationType.ImageSequenceAnimation, 1, true).then(function (animComp) {
+            console.log("2001 loaded");
+            comp.addChild(animComp.animator);
+            animComp.animator.x = StageSystem.stageWidth / 2;
+            animComp.animator.y = StageSystem.stageHeight / 2 + 200;
+            animSys.play(animComp, "stand_left");
+        });
+        animSys.createAnimation("2001", AnimationType.ImageSequenceAnimation, 1, true).then(function (animComp) {
+            console.log("2001 loaded");
+            comp.addChild(animComp.animator);
+            animComp.animator.x = StageSystem.stageWidth / 2 + 50;
+            animComp.animator.y = StageSystem.stageHeight / 2 + 200;
+            animSys.play(animComp, "attack_left");
+        });
     };
     TestUISystem2.prototype.onShow = function () {
         console.log("TestUISystem2,onShow");
@@ -28,13 +51,6 @@ var TestUISystem2 = (function (_super) {
         var comp = sys.FindUIComponentWithSysId(this.instanceId);
         comp.btn_close.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onCloseTouch, this);
         World.shareInstance.getSystem(SoundSystem).playMusic("test2.mp3");
-        var animSys = World.shareInstance.getSystem(AnimationSystem);
-        animSys.createAnimation("knight", AnimationType.DragonBoneAnimation).then(function (animComp) {
-            comp.addChild(animComp.animator);
-            animComp.animator.x = StageSystem.stageWidth / 2;
-            animComp.animator.y = StageSystem.stageHeight / 2;
-            animSys.play(animComp, "animation");
-        });
     };
     TestUISystem2.prototype.onHide = function () {
         console.log("TestUISystem2,onHide");

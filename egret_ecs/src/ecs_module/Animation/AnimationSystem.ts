@@ -13,31 +13,48 @@ class AnimationSystem implements ISystem {
 	{
 		return World.shareInstance.getEntity(AnimationEntity)
 	}
-
-	public async createAnimation(name:string,type:AnimationType,scale = 1):Promise<AnimationComponent>
+	/**
+	 * 创建动画
+	 * @param name 动画文件名称
+	 * @param type 动画类型
+	 * @param scale 缩放默认为1
+	 * @param loop 是否循环
+	 */
+	public async createAnimation(name:string,type:AnimationType,scale = 1,loop = false):Promise<AnimationComponent>
 	{
-		let ac = World.shareInstance.getSystem(PoolSystem).spawn(AnimationComponent) 
+		let ac = World.shareInstance.getSystem(PoolSystem).spawn(AnimationComponent)
+		if(ac.name != name) this.clearAnimation(ac)
 		ac.type = type
 		ac.name = name
+		ac.loop = loop
 		ac.animationScale = scale
 		let animationLoadSys = new AnimationLoader()
 		await animationLoadSys.loadAnimation(ac)
 		return new Promise<AnimationComponent>((resolve,reject)=>{resolve(ac)})
 	}
-
-	public play(anim:AnimationComponent,action:string)
+	/**
+	 * 播放动画
+	 * @param anim AnimationComponent
+	 * @param action 动画名字
+	 * @param playTimes 播放次数默认为1 ，播放次数只有在AnimationComponent.loop=false时有效
+	 */
+	public play(anim:AnimationComponent,action:string,playTimes = 1)
 	{
 		if(anim.type == AnimationType.DragonBoneAnimation)
 		{
 			let animator = anim.animator as dragonBones.EgretArmatureDisplay
-			animator.animation.play(action)
+			animator.animation.play(action,anim.loop?0:playTimes)
 		}
 		else if(anim.type == AnimationType.ImageSequenceAnimation)
 		{
 			let animator = anim.animator as egret.MovieClip
-			animator.play(anim.loop?-1:1)
+			animator.gotoAndPlay(action,anim.loop?-1:playTimes)
 		}
 	}
+	/**
+	 * 暂停播放
+	 * @param anim AnimationComponent
+	 */
 	public pause(anim:AnimationComponent)
 	{
 		if(anim.type == AnimationType.DragonBoneAnimation)
@@ -51,9 +68,13 @@ class AnimationSystem implements ISystem {
 			animator.stop()
 		}
 	}
+	/**
+	 * 清空动画数据
+	 * @param anim AnimationComponent
+	 */
 	public clearAnimation(anim:AnimationComponent)
 	{
-		UIManageSystem.removeDisplay(anim)
+		if(anim.animator) UIManageSystem.removeDisplay(anim.animator)
 		anim.name = ""
 		anim.animator = null
 		anim.autoRemove = false

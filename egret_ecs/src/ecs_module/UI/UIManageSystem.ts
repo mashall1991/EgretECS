@@ -68,33 +68,18 @@ class UIManageSystem implements ISystem{
 			return 
 		}
 		let uiSystem:UISystem = uiDic.system
-		let targetLayer:eui.UILayer = uiEn.layerMiddle
-		
-		let UILoadSys = World.shareInstance.getSystem(ResourceLoadSystem)
-		if(uiComponent.resourceGroup)
-			await UILoadSys.loadGroup(uiComponent.resourceGroup);
-		uiSystem.onUILoaded()
-		if(layerType != null)
+		let uiLoadSys = World.shareInstance.getSystem(ResourceLoadSystem)
+		if(!uiComponent.resourceLoaded)
 		{
-			switch(layerType)
-			{
-				case UILayerType.UIBottom:
-					targetLayer = uiEn.layerBottom
-					break;
-				case UILayerType.UIMid:
-					targetLayer = uiEn.layerMiddle
-					break;
-				case UILayerType.UITips:
-					targetLayer = uiEn.layerTips
-					break;
-				case UILayerType.UITop:
-					targetLayer = uiEn.layerTop
-					break;
-			}
+			if(uiComponent.resourceGroup)
+				await uiLoadSys.loadGroup(uiComponent.resourceGroup);
+			uiSystem.onUILoaded()
+			uiComponent.resourceLoaded = true
 		}
 		uiComponent.addEventListener(egret.Event.ADDED_TO_STAGE,uiSystem.addToStage,uiSystem)
 		uiComponent.addEventListener(egret.Event.REMOVED_FROM_STAGE,uiSystem.removeToStage,uiSystem)
 		uiEn.uiStack.push(uiComponent)
+		let targetLayer = this.findALayer(layerType)
 		targetLayer.addChild(uiComponent)
 		return new Promise<T>((resolve,reject)=>{resolve(uiComponent as T)})
 	}
@@ -203,6 +188,31 @@ class UIManageSystem implements ISystem{
 		}
 		return null
 
+	}
+
+	private findALayer(layerType:UILayerType):eui.UILayer
+	{
+		let uiEn = World.shareInstance.getEntity(UIEntity)
+		let targetLayer:eui.UILayer = uiEn.layerMiddle
+		if(layerType != null)
+		{
+			switch(layerType)
+			{
+				case UILayerType.UIBottom:
+					targetLayer = uiEn.layerBottom
+					break;
+				case UILayerType.UIMid:
+					targetLayer = uiEn.layerMiddle
+					break;
+				case UILayerType.UITips:
+					targetLayer = uiEn.layerTips
+					break;
+				case UILayerType.UITop:
+					targetLayer = uiEn.layerTop
+					break;
+			}
+		}
+		return targetLayer
 	}
 	public static removeDisplay(dis:egret.DisplayObject,parent:egret.DisplayObjectContainer=null):void
 	{

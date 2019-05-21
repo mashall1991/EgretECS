@@ -79,7 +79,7 @@ var UIManageSystem = (function () {
      */
     UIManageSystem.prototype.openUI = function (uicpnt, layerType) {
         return __awaiter(this, void 0, void 0, function () {
-            var uiEn, name, uiDic, uiComponent, uiSystem, targetLayer, UILoadSys;
+            var uiEn, name, uiDic, uiComponent, uiSystem, uiLoadSys, targetLayer;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -96,34 +96,22 @@ var UIManageSystem = (function () {
                             return [2 /*return*/];
                         }
                         uiSystem = uiDic.system;
-                        targetLayer = uiEn.layerMiddle;
-                        UILoadSys = World.shareInstance.getSystem(ResourceLoadSystem);
+                        uiLoadSys = World.shareInstance.getSystem(ResourceLoadSystem);
+                        if (!!uiComponent.resourceLoaded) return [3 /*break*/, 3];
                         if (!uiComponent.resourceGroup) return [3 /*break*/, 2];
-                        return [4 /*yield*/, UILoadSys.loadGroup(uiComponent.resourceGroup)];
+                        return [4 /*yield*/, uiLoadSys.loadGroup(uiComponent.resourceGroup)];
                     case 1:
                         _a.sent();
                         _a.label = 2;
                     case 2:
                         uiSystem.onUILoaded();
-                        if (layerType != null) {
-                            switch (layerType) {
-                                case UILayerType.UIBottom:
-                                    targetLayer = uiEn.layerBottom;
-                                    break;
-                                case UILayerType.UIMid:
-                                    targetLayer = uiEn.layerMiddle;
-                                    break;
-                                case UILayerType.UITips:
-                                    targetLayer = uiEn.layerTips;
-                                    break;
-                                case UILayerType.UITop:
-                                    targetLayer = uiEn.layerTop;
-                                    break;
-                            }
-                        }
+                        uiComponent.resourceLoaded = true;
+                        _a.label = 3;
+                    case 3:
                         uiComponent.addEventListener(egret.Event.ADDED_TO_STAGE, uiSystem.addToStage, uiSystem);
                         uiComponent.addEventListener(egret.Event.REMOVED_FROM_STAGE, uiSystem.removeToStage, uiSystem);
                         uiEn.uiStack.push(uiComponent);
+                        targetLayer = this.findALayer(layerType);
                         targetLayer.addChild(uiComponent);
                         return [2 /*return*/, new Promise(function (resolve, reject) { resolve(uiComponent); })];
                 }
@@ -214,6 +202,27 @@ var UIManageSystem = (function () {
             return uiEn.compAndSysMap[ClassSystem.getInstanceClassName(uiComp)];
         }
         return null;
+    };
+    UIManageSystem.prototype.findALayer = function (layerType) {
+        var uiEn = World.shareInstance.getEntity(UIEntity);
+        var targetLayer = uiEn.layerMiddle;
+        if (layerType != null) {
+            switch (layerType) {
+                case UILayerType.UIBottom:
+                    targetLayer = uiEn.layerBottom;
+                    break;
+                case UILayerType.UIMid:
+                    targetLayer = uiEn.layerMiddle;
+                    break;
+                case UILayerType.UITips:
+                    targetLayer = uiEn.layerTips;
+                    break;
+                case UILayerType.UITop:
+                    targetLayer = uiEn.layerTop;
+                    break;
+            }
+        }
+        return targetLayer;
     };
     UIManageSystem.removeDisplay = function (dis, parent) {
         if (parent === void 0) { parent = null; }
