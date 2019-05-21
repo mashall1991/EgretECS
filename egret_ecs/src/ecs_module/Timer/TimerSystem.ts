@@ -1,4 +1,4 @@
-class TimerSystem implements ISystem,IUpdateSystem{
+class TimerSystem extends System implements IUpdateSystem{
 	public execute()
 	{
 		World.shareInstance.createEntity(TimerEntity).addComponent(TimerComponent)

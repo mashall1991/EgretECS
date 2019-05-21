@@ -1,8 +1,17 @@
 var __reflect = (this && this.__reflect) || function (p, c, t) {
     p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
 };
-var StageSystem = (function () {
+var __extends = this && this.__extends || function __extends(t, e) { 
+ function r() { 
+ this.constructor = t;
+}
+for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
+r.prototype = e.prototype, t.prototype = new r();
+};
+var StageSystem = (function (_super) {
+    __extends(StageSystem, _super);
     function StageSystem() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     Object.defineProperty(StageSystem, "stageWidth", {
         /**
@@ -72,6 +81,6 @@ var StageSystem = (function () {
     };
     StageSystem.STAGE_RESIZE = "STAGE_RESIZE";
     return StageSystem;
-}());
-__reflect(StageSystem.prototype, "StageSystem", ["ISystem"]);
+}(System));
+__reflect(StageSystem.prototype, "StageSystem");
 //# sourceMappingURL=StageSystem.js.map

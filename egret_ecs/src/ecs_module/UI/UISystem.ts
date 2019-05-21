@@ -1,4 +1,4 @@
-abstract class UISystem implements ISystem,IAddToStageSystem,IRemoveToStageSystem,IShowSystem,IHideSystem,OnAnimationEndSystem {
+abstract class UISystem extends System implements IAddToStageSystem,IRemoveToStageSystem,IShowSystem,IHideSystem,OnAnimationEndSystem {
 	
 	public readonly instanceId = IdGenerator.GenerateInstanceId()
 	public abstract execute();

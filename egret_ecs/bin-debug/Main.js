@@ -131,9 +131,7 @@ var Main = (function (_super) {
                         uiManageSys = World.shareInstance.createSystem(UIManageSystem);
                         uiManageSys.execute();
                         uiManageSys.regist(TestUI, TestUISystem);
-                        return [4 /*yield*/, uiManageSys.openUI(TestUI)
-                            //Test
-                        ];
+                        return [4 /*yield*/, uiManageSys.openUI(TestUI)];
                     case 3:
                         _a.sent();
                         return [2 /*return*/];

@@ -1,6 +1,5 @@
-class UIManageSystem implements ISystem{
-	public constructor() {
-	}
+class UIManageSystem extends System{
+	
 	public execute()
 	{
 		let uiEn = World.shareInstance.createEntity(UIEntity)

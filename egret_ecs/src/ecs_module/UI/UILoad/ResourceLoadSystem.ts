@@ -1,6 +1,5 @@
-class ResourceLoadSystem implements ISystem,RES.PromiseTaskReporter {
-	public constructor() {
-	}
+class ResourceLoadSystem extends System implements RES.PromiseTaskReporter {
+	
 	public execute()
 	{
 		console.log("UIloadSystem executed.")

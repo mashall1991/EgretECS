@@ -3,8 +3,9 @@ class Entity implements IComponent{
 	
 	private Entity(){}
 	public components:Object = {}
+	public componentList = new Array<IComponent>()
 
-	public addComponent<T extends IComponent>(component:new ()=>T):T
+	public addComponent<T extends IComponent>(component:new ()=>T,multiple:boolean = false):T
 	{
 		let cp = new component()
 		let type = ClassSystem.getInstanceClassName(cp)
@@ -13,13 +14,15 @@ class Entity implements IComponent{
 		{
 			this.components[type] = cp
 		}
+		if(multiple) this.componentList.push(cp)
 		return this.components[type]
 	}
 
-	public addComponent_<T extends IComponent>(component:T):T
+	public addComponent_<T extends IComponent>(component:T,multiple:boolean = false):T
 	{
 		let type = ClassSystem.getInstanceClassName(component)
 		let c = this.components[type]
+		if(multiple) this.componentList.push(component)
 		if(c == null)
 		{
 			this.components[type] = component
@@ -30,6 +33,11 @@ class Entity implements IComponent{
 
 	public removeComponent<T extends IComponent>(component:T)
 	{
+		let index = this.componentList.indexOf(component) 
+		if(index != -1)
+		{
+			this.componentList.splice(index,1)
+		}
 		let type = ClassSystem.getInstanceClassName(component)
 		if(this.components[type])
 		{
@@ -70,15 +78,27 @@ class Entity implements IComponent{
 		}
 		return c
 	}
-	public getComponents():any[]
+	public getComponents<T extends IComponent>(cl:new()=>T,multiple = false):any[]
 	{
 		let array = []
-		for (var k in this.components)
+		if(multiple)
 		{
-			let c = this.components[k]
-			array.push(c)
+			for(var k in this.componentList)
+			{
+				let c = this.componentList[k]
+				if(ClassSystem.getClassName(cl) == ClassSystem.getInstanceClassName(c))
+					array.push(c)
+			}
+		}
+		else
+		{
+			for (var k in this.components)
+			{
+				let c = this.components[k]
+				if(ClassSystem.getClassName(cl) == ClassSystem.getInstanceClassName(c))
+					array.push(c)
+			}
 		}
 		return array
 	}
-	
 }	

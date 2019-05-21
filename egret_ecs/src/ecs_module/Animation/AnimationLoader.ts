@@ -1,4 +1,4 @@
-class AnimationLoader implements ISystem {
+class AnimationLoader extends System {
 
 	public execute()
 	{

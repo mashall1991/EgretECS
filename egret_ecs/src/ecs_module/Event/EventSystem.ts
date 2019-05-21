@@ -1,6 +1,5 @@
-class EventSystem implements ISystem {
-	public constructor() {
-	}
+class EventSystem extends System {
+	
 	public execute()
 	{
 		let entity = World.shareInstance.createEntity(EventEntity)

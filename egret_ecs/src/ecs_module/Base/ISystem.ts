@@ -30,4 +30,8 @@ interface IRemoveToStageSystem{
 interface OnAnimationEndSystem{
     onAnimationEnd():void
 }
+class System implements ISystem{
+    readonly instanceId:number = IdGenerator.GenerateInstanceId()
+    public execute(){}
+}
 

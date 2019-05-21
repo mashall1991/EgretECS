@@ -20,6 +20,7 @@ var TestUISystem2 = (function (_super) {
         console.log("TestUISystem2,onActive");
     };
     TestUISystem2.prototype.onUILoaded = function () {
+        var _this = this;
         console.log("TestUISystem2,onUILoaded");
         var animSys = World.shareInstance.getSystem(AnimationSystem);
         var sys = World.shareInstance.getSystem(UIManageSystem);
@@ -37,13 +38,19 @@ var TestUISystem2 = (function (_super) {
             animComp.animator.y = StageSystem.stageHeight / 2 + 200;
             animSys.play(animComp, "stand_left");
         });
-        animSys.createAnimation("2001", AnimationType.ImageSequenceAnimation, 1, true).then(function (animComp) {
+        animSys.createAnimation("2001", AnimationType.ImageSequenceAnimation, 1, false).then(function (animComp) {
             console.log("2001 loaded");
+            animComp.autoRemove = true;
             comp.addChild(animComp.animator);
             animComp.animator.x = StageSystem.stageWidth / 2 + 50;
             animComp.animator.y = StageSystem.stageHeight / 2 + 200;
+            animSys.addAnimationCompleteListener(animComp, _this.OnAnimationComplete, _this, [animComp]);
+            // 测试多次注册事件
+            // animSys.addAnimationCompleteListener(animComp,this.OnAnimationComplete,this,[animComp])
+            // animSys.addAnimationCompleteListener(animComp,this.OnAnimationComplete,this,[animComp])
             animSys.play(animComp, "attack_left");
         });
+        // console.log(World.shareInstance.getEntity(AnimationEntity))
     };
     TestUISystem2.prototype.onShow = function () {
         console.log("TestUISystem2,onShow");
@@ -62,6 +69,12 @@ var TestUISystem2 = (function (_super) {
     };
     TestUISystem2.prototype.onAnimationEnd = function () {
         console.log("TestUI2 animationEnd");
+    };
+    TestUISystem2.prototype.OnAnimationComplete = function (animComp) {
+        console.log("OnAnimationComplete");
+        console.log(animComp.name);
+        var animSys = World.shareInstance.getSystem(AnimationSystem);
+        animSys.removeAnimationCompleteListener(animComp, this, this.OnAnimationComplete);
     };
     return TestUISystem2;
 }(UISystem));

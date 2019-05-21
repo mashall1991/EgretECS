@@ -86,9 +86,6 @@ class Main extends eui.UILayer {
         uiManageSys.execute()
         uiManageSys.regist(TestUI,TestUISystem)
         await uiManageSys.openUI(TestUI)
-
-        //Test
-        
     }
 
     private async loadResource() {

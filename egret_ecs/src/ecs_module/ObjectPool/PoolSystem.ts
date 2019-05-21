@@ -1,4 +1,4 @@
-class PoolSystem implements ISystem {
+class PoolSystem extends System {
 	
 	public execute()
 	{

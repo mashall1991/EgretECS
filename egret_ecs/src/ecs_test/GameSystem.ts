@@ -1,4 +1,4 @@
-class GameSystem implements ISystem{
+class GameSystem extends System{
 	
 	public execute()
 	{

@@ -1,4 +1,4 @@
-class StageSystem implements ISystem {
+class StageSystem extends System {
 	public static STAGE_RESIZE:string = "STAGE_RESIZE"
 	
 	/**

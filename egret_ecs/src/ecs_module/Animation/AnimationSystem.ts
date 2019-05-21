@@ -2,10 +2,10 @@
 /**
  * 序列帧动画
  */
-class AnimationSystem implements ISystem {
+class AnimationSystem extends System {
 	public execute()
 	{
-		World.shareInstance.createEntity(AnimationEntity)
+		World.shareInstance.createEntity(AnimationEntity).addComponent(AnimationListenerComponent)
 		let poolsys = World.shareInstance.getSystem(PoolSystem)		
 		poolsys.createPool(AnimationComponent)
 	}
@@ -30,7 +30,62 @@ class AnimationSystem implements ISystem {
 		ac.animationScale = scale
 		let animationLoadSys = new AnimationLoader()
 		await animationLoadSys.loadAnimation(ac)
+		this.getEntity().addComponent_(ac,true)
 		return new Promise<AnimationComponent>((resolve,reject)=>{resolve(ac)})
+	}
+	public addAnimationCompleteListener(comp:AnimationComponent,func:Function,thisObject:System,params:any[] = null)
+	{
+		let alc = this.getEntity().getComponent(AnimationListenerComponent)
+		let array = alc[comp.instanceId.toString()]
+		if(array == null){
+			array = []
+			alc[comp.instanceId.toString()] = array
+		}
+		let hasSame = false
+		for(let k in array)
+		{
+			let couple = array[k]
+			if(couple.thisObject.instanceId == thisObject.instanceId && couple.func == func)
+			{
+				hasSame = true
+				break;
+			}
+		}
+		if(!hasSame)
+		{
+			let couple = {func:func,thisObject:thisObject,params:params}
+			array.push(couple)
+		}
+		else
+		{
+			console.warn("function for "+ ClassSystem.getInstanceClassName(thisObject) + " has registed.")
+		}
+	}
+	public removeAnimationCompleteListener(comp:AnimationComponent,thisObject:System,func:Function)
+	{
+		let alc = this.getEntity().getComponent(AnimationListenerComponent)
+		let array:any[] = alc[comp.instanceId.toString()]
+		if(array)
+		{
+			for (var k in array)
+			{
+				let couple = array[k]
+				if(couple.thisObject.instanceId = thisObject.instanceId && couple.func == func)
+				{
+					array.splice(parseInt(k),1)
+					break;
+				}
+			}
+		}
+	}
+	public removeAllListeners(comp:AnimationComponent)
+	{
+		let alc = this.getEntity().getComponent(AnimationListenerComponent)
+		let array:any[] = alc[comp.instanceId.toString()]
+		if(array)
+		{
+			delete alc[comp.instanceId.toString()]
+		}
 	}
 	/**
 	 * 播放动画
@@ -49,6 +104,8 @@ class AnimationSystem implements ISystem {
 		{
 			let animator = anim.animator as egret.MovieClip
 			animator.gotoAndPlay(action,anim.loop?-1:playTimes)
+			if(anim.autoRemove)
+				animator.addEventListener(egret.MovieClipEvent.COMPLETE,this.anyAnimationComplete,this)
 		}
 	}
 	/**
@@ -81,6 +138,47 @@ class AnimationSystem implements ISystem {
 		anim.loop = false
 		anim.defaultName = ""
 	}	
+
+	private anyAnimationComplete(evt:egret.MovieClipEvent)
+	{
+		console.log("animation complete")
+		this.dispatchCompleteEvents(evt)
+		evt.target.removeEventListener(egret.MovieClipEvent.COMPLETE,this.anyAnimationComplete,this);
+		UIManageSystem.removeDisplay(evt.target)
+	}
+	
+	private dispatchCompleteEvents(evt)
+	{
+		let alc = this.getEntity().getComponent(AnimationListenerComponent)
+		//TODO:dispatch event to listeners
+		let component = this.findMatchAC(evt.target)
+		if(component)
+		{
+			let listeners = alc[component.instanceId.toString()]
+			if(listeners)
+			{
+				for(var k in listeners)
+				{
+					let couple = listeners[k]
+					let func = couple.func as Function
+					func.apply(couple.thisObject,couple.params)
+				}
+			}
+		}
+	}
+	private findMatchAC(target)
+	{
+		let entity = this.getEntity()
+		let compts = entity.getComponents(AnimationComponent,true)
+		for(var k in compts)
+		{
+			let comp = compts[k] as AnimationComponent
+			if(comp.animator == target)
+				return comp
+		}
+	}
+	
+
 	public static GetAnimationDisplay(name:string):dragonBones.EgretArmatureDisplay{
 
         var dragonbonesData = RES.getRes(name +"_ske_json" );

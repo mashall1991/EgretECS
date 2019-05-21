@@ -1,6 +1,13 @@
 var __reflect = (this && this.__reflect) || function (p, c, t) {
     p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
 };
+var __extends = this && this.__extends || function __extends(t, e) { 
+ function r() { 
+ this.constructor = t;
+}
+for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
+r.prototype = e.prototype, t.prototype = new r();
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -36,8 +43,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var UIManageSystem = (function () {
+var UIManageSystem = (function (_super) {
+    __extends(UIManageSystem, _super);
     function UIManageSystem() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     UIManageSystem.prototype.execute = function () {
         var uiEn = World.shareInstance.createEntity(UIEntity);
@@ -236,6 +245,6 @@ var UIManageSystem = (function () {
         parent.removeChild(dis);
     };
     return UIManageSystem;
-}());
-__reflect(UIManageSystem.prototype, "UIManageSystem", ["ISystem"]);
+}(System));
+__reflect(UIManageSystem.prototype, "UIManageSystem");
 //# sourceMappingURL=UIManageSystem.js.map

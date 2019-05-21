@@ -29,15 +29,21 @@ class TestUISystem2 extends UISystem {
 			animComp.animator.y = StageSystem.stageHeight / 2 + 200
 			animSys.play(animComp,"stand_left")
 		})
-		animSys.createAnimation("2001",AnimationType.ImageSequenceAnimation,1,true).then((animComp:AnimationComponent)=>
+		animSys.createAnimation("2001",AnimationType.ImageSequenceAnimation,1,false).then((animComp:AnimationComponent)=>
 		{
 			console.log("2001 loaded")
+			animComp.autoRemove = true
 			comp.addChild(animComp.animator)
 			animComp.animator.x = StageSystem.stageWidth / 2 + 50
 			animComp.animator.y = StageSystem.stageHeight / 2 + 200
+			animSys.addAnimationCompleteListener(animComp,this.OnAnimationComplete,this,[animComp])
+			// 测试多次注册事件
+			// animSys.addAnimationCompleteListener(animComp,this.OnAnimationComplete,this,[animComp])
+			// animSys.addAnimationCompleteListener(animComp,this.OnAnimationComplete,this,[animComp])
 			animSys.play(animComp,"attack_left")
 		})
 	}
+	
 	public onShow()
 	{
 		console.log("TestUISystem2,onShow")
@@ -60,6 +66,12 @@ class TestUISystem2 extends UISystem {
 	{
 		console.log("TestUI2 animationEnd")
 	}
-	
+	private OnAnimationComplete(animComp:AnimationComponent)
+	{
+		console.log("OnAnimationComplete")	
+		console.log(animComp.name)	
+		let animSys = World.shareInstance.getSystem(AnimationSystem)
+		animSys.removeAnimationCompleteListener(animComp,this,this.OnAnimationComplete)
+	}
 
 }

@@ -1,4 +1,4 @@
-class SoundSystem implements ISystem {
+class SoundSystem extends System {
 	
 	public execute()
 	{

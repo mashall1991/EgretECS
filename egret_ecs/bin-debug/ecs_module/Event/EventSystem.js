@@ -1,8 +1,17 @@
 var __reflect = (this && this.__reflect) || function (p, c, t) {
     p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
 };
-var EventSystem = (function () {
+var __extends = this && this.__extends || function __extends(t, e) { 
+ function r() { 
+ this.constructor = t;
+}
+for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
+r.prototype = e.prototype, t.prototype = new r();
+};
+var EventSystem = (function (_super) {
+    __extends(EventSystem, _super);
     function EventSystem() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     EventSystem.prototype.execute = function () {
         var entity = World.shareInstance.createEntity(EventEntity);
@@ -31,6 +40,6 @@ var EventSystem = (function () {
         egret.Event.release(event);
     };
     return EventSystem;
-}());
-__reflect(EventSystem.prototype, "EventSystem", ["ISystem"]);
+}(System));
+__reflect(EventSystem.prototype, "EventSystem");
 //# sourceMappingURL=EventSystem.js.map

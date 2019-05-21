@@ -1,8 +1,17 @@
 var __reflect = (this && this.__reflect) || function (p, c, t) {
     p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
 };
-var GameSystem = (function () {
+var __extends = this && this.__extends || function __extends(t, e) { 
+ function r() { 
+ this.constructor = t;
+}
+for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
+r.prototype = e.prototype, t.prototype = new r();
+};
+var GameSystem = (function (_super) {
+    __extends(GameSystem, _super);
     function GameSystem() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     GameSystem.prototype.execute = function () {
         var en = World.shareInstance.createEntity(GameEntity);
@@ -29,6 +38,6 @@ var GameSystem = (function () {
         }
     };
     return GameSystem;
-}());
-__reflect(GameSystem.prototype, "GameSystem", ["ISystem"]);
+}(System));
+__reflect(GameSystem.prototype, "GameSystem");
 //# sourceMappingURL=GameSystem.js.map
