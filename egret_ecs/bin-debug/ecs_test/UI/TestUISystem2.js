@@ -50,7 +50,6 @@ var TestUISystem2 = (function (_super) {
             // animSys.addAnimationCompleteListener(animComp,this.OnAnimationComplete,this,[animComp])
             animSys.play(animComp, "attack_left");
         });
-        // console.log(World.shareInstance.getEntity(AnimationEntity))
     };
     TestUISystem2.prototype.onShow = function () {
         console.log("TestUISystem2,onShow");

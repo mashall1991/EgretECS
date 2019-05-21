@@ -1,5 +1,5 @@
 class TestUISystem extends UISystem {
-	
+
 	public execute()
 	{
 		console.log("TestUISystem,execute")
