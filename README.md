@@ -1,3 +1,3 @@
 # EgretECS
-ECS Framework for Egret(html5 engine)
-欢迎各路大神帮助完善此框架 
+*ECS Framework for Egret(html5 engine)*
+\n欢迎各路大神帮助完善此框架 
