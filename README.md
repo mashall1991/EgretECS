@@ -1,4 +1,6 @@
 # EgretECS
-====
 *ECS Framework for Egret(html5 engine)*
-<br>欢迎各路大神帮助完善此框架 </br>
+<br>It is easily to develop a html5 game with this framework.</br>
+----
+
+## Usage
